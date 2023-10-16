@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Meta tags for character set and responsive design -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Title of the webpage -->
+        <title>Scoreboard</title>
+
+        <!-- Link to the Bootstrap CSS for styling -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+
+        <!-- Custom styles for the page -->
+        <style>
+            /* Style for making the table scrollable */
+            .scrollable-table {
+                max-height: 400px; /* Maximum height before scrolling */
+                overflow-y: auto; /* Enable vertical scrolling */
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Main content container -->
+        <div class="container mt-5">
+            <!-- Scoreboard title -->
+            <h1 class="text-center">Scoreboard</h1>
+
+            <!-- Scrollable table container -->
+            <div class="scrollable-table">
+                <!-- Scoreboard table -->
+                <table class="table table-striped mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Player</th>
+                            <th scope="col">Score</th>
+                            <th scope="col">Difficulty</th>
+                            <th scope="col">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scoreboardBody">
+                        <!-- This is where the scores will be dynamically populated from the JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Button to navigate back to the main page -->
+            <div class="mt-5 text-center">
+                <a href="../index.html" class="btn btn-primary"
+                    >Back to Main Page</a
+                >
+            </div>
+        </div>
+
+        <!-- Link to the Bootstrap JS and Popper.js for Bootstrap's JavaScript components -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- Link to the external JavaScript file for the scoreboard logic -->
+        <script src="scoreboard.js"></script>
+    </body>
+</html>
