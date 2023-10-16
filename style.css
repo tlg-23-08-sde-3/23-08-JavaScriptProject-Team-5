@@ -1,0 +1,92 @@
+/* Reset some default styles for better consistency */
+body, h1, h2, p, form {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8dd30;
+  }
+  
+  section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    display: flex;
+  }
+  
+  .signinBox, .signupBox {
+    width: 400px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 20px;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .formBox {
+    padding: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  form {
+    text-align: center;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  input[type="submit"] {
+    width: 280px; 
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #2d93e6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  
+  a {
+    text-decoration: none;
+    color: #3483d8;
+  }
+  
+  .signup a {
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    section {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .signinBox, .signupBox {
+      width: 90%;
+    }
+  }
+
+  
+  
