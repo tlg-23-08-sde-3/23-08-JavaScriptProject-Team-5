@@ -1,2 +1,4 @@
 # 23-08-JavaScriptProject-Team-5
-FInal Javascript Project
+Final Javascript Project by
+- Alberto Leon
+- Jojo George Mattam
