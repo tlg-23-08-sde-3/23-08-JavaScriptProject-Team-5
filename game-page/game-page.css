@@ -1,0 +1,62 @@
+/* General styling for the game page */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    overflow: auto;
+}
+
+/* Styling for the timer display */
+#timer {
+    font-size: 1.5em;
+    background-color: #2d93e6;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+    width: fit-content;
+}
+
+/* Grid layout for the game board */
+.game-container {
+    display: grid;
+    gap: 20px;
+    width: fit-content;
+    justify-content: center;
+    min-height: 300px;
+}
+
+/* Appearance of each card */
+.card {
+    width: 150px;
+    height: 150px;
+    background-color: #2d93e6;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    color: white;
+    margin: 1px;
+}
+
+/* Layout adjustments for tablets */
+@media (max-width: 900px) {
+    .game-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+/* Layout adjustments for mobile devices */
+@media (max-width: 680px) {
+    .game-container {
+        flex-direction: column;
+    }
+}
