@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const scores = [
-        { player: "Gen", score: 100 },
-        { player: "Chris", score: 90 },
-        { player: "Joe", score: 80 },
+        { player: "Gen", score: 340 },
+        { player: "Chris", score: 900 },
+        { player: "Joe", score: 120 },
     ];
+
+    scores.sort((a, b) => b.score - a.score);
 
     scores.forEach((score, index) => {
         const row = document.createElement("tr");
