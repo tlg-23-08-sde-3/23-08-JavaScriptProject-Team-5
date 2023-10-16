@@ -1,0 +1,5 @@
+/* Style for making the table scrollable */
+.scrollable-table {
+    max-height: 400px; /* Maximum height before scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}

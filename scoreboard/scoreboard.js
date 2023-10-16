@@ -14,6 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
         { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
         { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
         { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
+        { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
+        { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
+        { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
+        { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
+        { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
+        { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
+        { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
+        { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
+        { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
+        { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
+        { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
+        { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
     ];
 
     // Sort the scores array in descending order based on the score value.
