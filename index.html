@@ -1,49 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <link rel="stylesheet" href="style.css">
-    <title>Memory Game</title>
-  </head>
-  <body>
-    <section>
-      <div class="container">
-        <div class="signinBox">
-          <div class="formBox">
-            <form action="" onsubmit="return false;">
-              <h2>SIGN IN TO MEMORY GAME..</h2><br>
-              <input type="text" name="username" placeholder="Username" />
-              <input type="password" name="password" placeholder="Password" />
-              <input type="submit" name="login" value="Login" /><br><br>
-              <p class="signup">
-                Don't have an account ?
-                <a href="#" onclick="toggleForm();">Sign Up.</a>
-              </p>
-            </form>
-          </div>
-        </div>
-        <div class="signupBox" style="display: none;">
-          <div class="formBox">
-            <form action="" onsubmit="return false;">
-              <h2>CREATE ACCOUNT TO PLAY..</h2><br>
-              <input type="text" name="username" placeholder="Username" />
-              <input type="email" name="email" placeholder="Email Address" />
-              <input type="password" name="password" placeholder="Create Password" />
-              <input type="password" name="confirm_password" placeholder="Confirm Password" />
-              <input type="submit" name="signup" value="Sign Up" /><br><br>
-              <p class="signup">
-                Already have an account ?
-                <a href="#" onclick="toggleForm();">Sign in.</a>
-              </p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-    <script src="script.js"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="sign.css" />
+        <title>Memory Game</title>
+    </head>
+    <body>
+        <section>
+            <div class="container">
+                <div class="signinBox">
+                    <div class="formBox">
+                        <form action="" onsubmit="return false;">
+                            <h2>SIGN IN TO MEMORY GAME..</h2>
+                            <br />
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="Username"
+                            />
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                            />
+                            <input
+                                type="submit"
+                                name="login"
+                                value="Login"
+                            /><br /><br />
+                            <p class="signup">
+                                Don't have an account ?
+                                <a href="#" onclick="toggleForm();">Sign Up.</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                <div class="signupBox" style="display: none">
+                    <div class="formBox">
+                        <form action="" onsubmit="return false;">
+                            <h2>CREATE ACCOUNT TO PLAY..</h2>
+                            <br />
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="Username"
+                            />
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email Address"
+                            />
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Create Password"
+                            />
+                            <input
+                                type="password"
+                                name="confirm_password"
+                                placeholder="Confirm Password"
+                            />
+                            <input
+                                type="submit"
+                                name="signup"
+                                value="Sign Up"
+                            /><br /><br />
+                            <p class="signup">
+                                Already have an account ?
+                                <a href="#" onclick="toggleForm();">Sign in.</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="sign.js"></script>
+    </body>
 </html>
