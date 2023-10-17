@@ -80,6 +80,14 @@ body {
     transform: rotateY(0deg);
 }
 
+.card.matched .card-back {
+    transform: rotateY(0deg);
+}
+
+.card.matched .card-front {
+    transform: rotateY(180deg);
+}
+
 /* Responsive design adjustments for tablets */
 @media (max-width: 900px) {
     .game-container {

@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Character encoding for the document -->
-        <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Card Game</title>
+    <link rel="stylesheet" href="game-page.css" />
+</head>
+<body>
+    <form id="imageForm">
+        <label for="prompt">Enter image search criteria</label>
+        <input type="text" id="prompt" name="prompt" required>
+        <button type="submit">Generate Image</button>
+    </form>
 
-        <!-- Ensures proper rendering and touch zooming on mobile devices -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        <!-- Title displayed in the browser tab -->
-        <title>Memory Card Game</title>
-
-        <!-- Link to the external CSS file for styling the game page -->
-        <link rel="stylesheet" href="game-page.css" />
-    </head>
-    <body>
-        <!-- Display for the remaining time in the game -->
-        <span id="timer">Remaining Time: 00:00</span>
-
-        <!-- Container for the game board where cards will be dynamically added -->
-        <div class="game-container" id="gameBoard"></div>
-
-        <!-- Link to the external JavaScript file for game logic and interactivity -->
-        <script src="game-page.js"></script>
-    </body>
+    <span id="timer">Remaining Time: 00:00</span>
+    <div class="game-container" id="gameBoard"></div>
+    <script src="game-page.js"></script>
+</body>
 </html>
