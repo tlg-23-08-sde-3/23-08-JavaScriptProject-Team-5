@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='//fonts.googleapis.com/css?family=Signika+Negative:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="game-layout.css" />
+</head>
+<body>
+  <div class="game_menu">
+    <ul class="nav">
+      <li class="btn" id="new-game">New Game</li>
+      <li class="btn">Scoreboard</li>
+      <li class="btn">Credits</li>
+    </ul>
+  </div>
+  <div class="game_menu_difficulty" id="game_menu_difficulty" style="display: none;">
+    <div id="difficulty-options" class="dropdown" >
+      <ul class="nav" id="difficulty-buttons">
+        <li class="btn" id="easy">Easy</li>
+        <li class="btn" id="medium">Medium</li>
+        <li class="btn" id="hard">Hard</li>
+      </ul>
+      <div id="search-criteria" style="display: none;">
+        <h2>What do you like for game tiles images?</h2><br>
+        <input type="text" id="search-input" placeholder="Enter image search keyword"><br><br>
+        <button type="submit" id="search-button">START GAME</button>
+      </div>
+    </div>
+  </div>
+<div class="game-page" id="game-page" style="display: none;">
+  <span id="timer">Remaining Time: 00:00</span>
+  <div class="game-container" id="gameBoard"></div>
+</div>
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.1/TweenMax.min.js"></script>
+<script src="script.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>

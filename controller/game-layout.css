@@ -1,0 +1,104 @@
+/* General styling for the game page */
+
+/* Set the default font for the entire page, center the content both horizontally and vertically, 
+   set the height to cover the entire viewport, and set the background color. */
+   .game-page {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8dd30;
+    overflow: auto; /* Allows scrolling if content overflows the viewport height */
+}
+
+/* Styling for the timer display */
+#timer {
+    font-size: 1.5em;
+    background-color: #2d93e6;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+    width: fit-content; /* Adjusts the width to fit the content */
+}
+
+/* Grid layout for the game board */
+.game-container {
+    display: grid;
+    gap: 20px; /* Space between grid items */
+    width: fit-content; /* Adjusts the width to fit the content */
+    justify-content: center;
+    min-height: 300px; /* Minimum height of the game container */
+}
+
+/* Appearance of each card */
+.card {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    cursor: pointer; /* Changes the cursor to a hand when hovering over a card */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    color: white;
+    margin: 1px;
+    perspective: 1000px; /* Provides a 3D perspective for the card flipping effect */
+    background-color: transparent; /* Ensures the card background is transparent */
+}
+
+/* Styling for the front and back of the card */
+.card-front,
+.card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute; /* Positions the card front and back on top of each other */
+    backface-visibility: hidden; /* Hides the side of the card that is facing away */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: transform 1s; /* Smooth transition for the flipping effect */
+    background-size: cover; /* Ensures the background image covers the entire card */
+    background-position: center; /* Centers the background image */
+}
+
+/* Initial rotation for the card back to be hidden */
+.card-back {
+    transform: rotateY(-180deg);
+}
+
+/* When the card is flipped, rotate the front and back to show the opposite side */
+.card.flipped .card-front {
+    transform: rotateY(180deg);
+}
+
+.card.flipped .card-back {
+    transform: rotateY(0deg);
+}
+
+.card.matched .card-back {
+    transform: rotateY(0deg);
+}
+
+.card.matched .card-front {
+    transform: rotateY(180deg);
+}
+
+/* Responsive design adjustments for tablets */
+@media (max-width: 900px) {
+    .game-container {
+        flex-direction: row;
+        flex-wrap: wrap; /* Allows grid items to wrap to the next row if there's not enough space */
+    }
+}
+
+/* Responsive design adjustments for mobile devices */
+@media (max-width: 680px) {
+    .game-container {
+        flex-direction: column;
+    }
+}
