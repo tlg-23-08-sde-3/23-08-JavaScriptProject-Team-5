@@ -1,0 +1,110 @@
+body, html {
+  font-family: Signika Negative, sans-serif;
+  background: #f8dd30;
+  color: #efefef;
+  height: 100%;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.btn {
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  padding: 25px 80px;
+  margin: 25px 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  outline: none;
+  position: relative;
+  background-color: #977331;
+  border: solid 1px transparent;
+  border-radius: 10px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.game_menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.nav, #search-criteria {
+  width: 400px;
+  height: 300px;
+  margin: auto;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding: 40px; /* Adjust this value to make it consistent */
+}
+
+.game_menu_difficulty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make the instructions div fill the entire viewport height */
+}
+
+.dropdown {
+  text-align: center;
+  background: #fff; /* Match the background color of the menu */
+  border-radius: 5px;
+}
+
+#difficulty-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+}
+
+#start-game {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #977331;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style for dropdown options */
+#difficulty-select option {
+  padding: 10px;
+}
+
+/* Style for the selected option in the dropdown */
+#difficulty-select option:checked {
+  background-color: #977331;
+  color: #fff;
+}
+
+#search-input {
+  padding: 10px;
+  font-size: 19px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+}
+
+#search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #977331;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+h2 {
+  color: #977331;
+  font-size: x-large;
+  font-weight: bold;
+}
+

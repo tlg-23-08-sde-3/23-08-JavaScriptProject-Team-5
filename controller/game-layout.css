@@ -2,21 +2,21 @@
 
 /* Set the default font for the entire page, center the content both horizontally and vertically, 
    set the height to cover the entire viewport, and set the background color. */
-body {
+   .game-page {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #f8dd30;
     overflow: auto; /* Allows scrolling if content overflows the viewport height */
 }
 
 /* Styling for the timer display */
 #timer {
     font-size: 1.5em;
-    background-color: #2d93e6;
+    background-color: #977331;
     padding: 5px 10px;
     border-radius: 5px;
     color: white;
