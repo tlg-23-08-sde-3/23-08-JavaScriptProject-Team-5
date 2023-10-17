@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Stop the timer when the remaining time reaches zero.
     if (remainingTime <= 0) {
       clearInterval(timerInterval);
-      // gameEnd(); // Placeholder for game end logic.
+      gameEnd(); 
     }
   }
 
@@ -225,7 +225,35 @@ function checkGameEnd() {
 }
 
 function gameEnd() {
-  // Figure out the points scored based on the remaining time
+  // Calculate the points scored based on the remaining time
   const points = remainingTime * 100;
-  // Display the points earned
+
+  // Display the points earned to the player
+  const gameBoard = document.getElementById("gameBoard");
+  const timerElement = document.getElementById("timer");
+  const gameContainer = document.getElementById("container");
+
+  // Create a message to inform the player about the game end place it outside game container
+  const endMessage = document.createElement("div");
+  endMessage.classList.add("end-message");
+  endMessage.textContent = `Game Over! You scored ${points} points.`;
+
+  // Append the end message to the game board
+  gameContainer.appendChild(endMessage);
+
+  // Hide the timer and the game board
+  gameBoard.style.display = "none";
+  timerElement.style.display = "none";
+
+  // Optionally, you can provide an option to restart the game
+  const restartButton = document.createElement("button");
+  restartButton.classList.add("restart-button");
+  restartButton.textContent = "Restart Game";
+  restartButton.addEventListener("click", () => {
+    location.reload();
+});
+
+  // Append the restart button
+  gameContainer.appendChild(restartButton);
+
 }
