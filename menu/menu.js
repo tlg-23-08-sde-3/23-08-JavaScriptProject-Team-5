@@ -89,8 +89,12 @@ function renderScoreboard() {
     backButton.classList.add('scoreboard-button');
     backButton.textContent = 'Back to Menu';
     backButton.addEventListener('click', function() {
+      const gameOverMessage = document.querySelector('.end-message');
       // Remove the scoreboard and show the main menu
       scoreboardMain.remove();
+      if (gameOverMessage) {
+        gameOverMessage.remove();
+      }
       document.querySelector('.game_menu').style.display = 'flex';
     });
 
