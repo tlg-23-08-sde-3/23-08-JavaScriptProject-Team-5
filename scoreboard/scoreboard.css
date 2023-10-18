@@ -1,5 +1,74 @@
-/* Style for making the table scrollable */
+/* scoreboard.css */
+
+/* Making the background consistent */
+body {
+    font-family: Signika Negative, sans-serif;
+    background-color: #f8dd30;
+    height: 100vh; /* Make the body take up the full viewport height */
+    display: flex; /* Use flexbox to center the container */
+    align-items: center; /* Center container vertically */
+    justify-content: center; /* Center container horizontally */
+    margin: 0; /* Reset the margin */
+}
+
+/* Styling the main container for consistency */
+.container {
+    width: 95%; /* Increase the width to 95% of the viewport width */
+    max-width: 1200px; /* Set a maximum width to ensure it doesn't get too wide on very large screens */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 0 auto; /* Remove the top margin and keep the auto margin for horizontal centering */
+    padding: 40px;
+    text-align: center;
+}
+
+/* Styling the title for visual appeal */
+h1.text-center {
+    color: #977331;
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* Styling the table to make it visually appealing */
+table {
+    width: 100%; /* Ensure the table takes up the full width of the container */
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Styling the button to match the other buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #977331;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* to remove the underline from the anchor tag */
+}
+
+/* Scrollable table container */
 .scrollable-table {
-    max-height: 70vh; /* Maximum height before scrolling */
-    overflow-y: auto; /* Enable vertical scrolling */
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 50%; /* Increase the width for smaller screens */
+    }
 }
