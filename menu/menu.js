@@ -46,26 +46,32 @@ difficultyButtons.addEventListener("click", function (event) {
     const searchCriteria = document.getElementById("search-criteria");
     searchCriteria.style.display = "block";
 
-    // Add click event listener to the search button
-    const searchButton = document.getElementById("search-button");
-    searchButton.addEventListener("click", function () {
-      document.getElementById("game_menu_difficulty").style.display = "none";
-      document.getElementById("game-page").style.display = "flex";
-      // Get the search criteria entered by the user
-      const searchInput = document.getElementById("search-input").value;
+// Define the event handler function for the Search button
+function searchButtonClickHandler() {
+  document.getElementById("game_menu_difficulty").style.display = "none";
+  document.getElementById("game-page").style.display = "flex";
+  // Get the search criteria entered by the user
+  const searchInput = document.getElementById("search-input").value;
 
-      const searchEvent = new CustomEvent("startGame", { detail: { searchInput, selectedDifficulty } });
-      document.dispatchEvent(searchEvent);
+  const searchEvent = new CustomEvent("startGame", { detail: { searchInput, selectedDifficulty } });
+  document.dispatchEvent(searchEvent);
 
-      if (searchInput) {
-        // User provided search criteria
-        console.log(`Starting the game with difficulty: ${selectedDifficulty}`);
-        console.log(`Image search criteria: ${searchInput}`);
-      } else {
-        // User didn't enter any search criteria
-        console.log(`Starting the game with difficulty: ${selectedDifficulty}`);
-      }
-    });
+  if (searchInput) {
+    // User provided search criteria
+    console.log(`Starting the game with difficulty: ${selectedDifficulty}`);
+    console.log(`Image search criteria: ${searchInput}`);
+  } else {
+    // User didn't enter any search criteria
+    console.log(`Starting the game with difficulty: ${selectedDifficulty}`);
+  }
+
+  // Remove the event listener after it has been executed
+  searchButton.removeEventListener("click", searchButtonClickHandler);
+}
+
+// Add the event listener to the "Search" button
+const searchButton = document.getElementById("search-button");
+searchButton.addEventListener("click", searchButtonClickHandler);
   }
 });
 
@@ -180,9 +186,6 @@ function populateScoreboard() {
         scoreboardBody.appendChild(row);
     });
   }
-
-
-
 
 // Add a click event listener to the "Credits" button
 const creditsButton = document.getElementById("credits-button");

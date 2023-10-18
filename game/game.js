@@ -225,6 +225,15 @@ function checkGameEnd() {
 }
 
 function gameEnd() {
+  const gameBoard = document.getElementById("gameBoard");
+  if (gameBoard) {
+    while (gameBoard.firstChild) {
+      gameBoard.removeChild(gameBoard.firstChild);
+    }
+  }
+
+
+
   // Calculate the points scored based on the remaining time
   const points = remainingTime * 100;
 
@@ -238,8 +247,13 @@ function gameEnd() {
 
   // Hide the game page, game board, and timer element
   document.getElementById("game-page").style.display = "none";
-  document.getElementById("gameBoard").style.display = "none";
-  document.getElementById("timer").style.display = "none";
+  // document.getElementById("gameBoard").style.display = "none";
+  // document.getElementById("timer").style.display = "none";
+  document.getElementById("game_menu_difficulty").style.display = "none";
+  document.getElementById("difficulty-options").style.display = "";
+  document.getElementById("difficulty-buttons").style.display = "";
+  document.getElementById("search-criteria").style.display = "none";
+  document.getElementById("search-input").value = "";
 
   // Append the end message and then render the scoreboard
   gameContainer.appendChild(endMessage);
