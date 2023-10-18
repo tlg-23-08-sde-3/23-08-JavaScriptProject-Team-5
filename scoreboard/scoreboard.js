@@ -14,18 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
         { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
         { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
         { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
-        { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
-        { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
-        { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
-        { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
-        { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
-        { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
-        { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
-        { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
-        { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
-        { player: "Gen", score: 340, difficulty: "medium", time: "2m 30s" },
-        { player: "Chris", score: 900, difficulty: "hard", time: "3m 15s" },
-        { player: "Joe", score: 120, difficulty: "easy", time: "1m 45s" },
     ];
 
     // Sort the scores array in descending order based on the score value.
@@ -52,5 +40,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Append the populated row to the table body in the HTML.
         scoreboardBody.appendChild(row);
+    });
+
+    // Add click event listener to the "Scoreboard" button to show the scoreboard section
+    const scoreboardButton = document.querySelector(".game-btn:nth-child(2)"); // Updated selector
+    scoreboardButton.addEventListener("click", function () {
+        // Hide the game menu
+        document.querySelector(".game_menu").style.display = "none";
+
+        // Show the scoreboard section
+        document.getElementById("scoreboard-section").style.display = "block"; // Updated selector
+    });
+
+    // Add click event listener to the "Back to Game Menu" button to navigate back to the game menu
+    const backButton = document.querySelector(".score-btn"); // Updated selector
+    backButton.addEventListener("click", function () {
+        // Hide the scoreboard section
+        document.getElementById("scoreboard-section").style.display = "none"; // Updated selector
+
+        // Show the game menu
+        document.querySelector(".game_menu").style.display = "flex";
     });
 });
