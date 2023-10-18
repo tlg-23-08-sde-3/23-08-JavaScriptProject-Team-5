@@ -1,25 +1,30 @@
-body, h1, h2, p, form {
+body,
+h1,
+h2,
+p,
+form {
     margin: 0;
     padding: 0;
-  }
-  
-  body {
+}
+
+body {
     font-family: Arial, sans-serif;
     background-color: #f8dd30;
-  }
-  
-  .sign-section {
+}
+
+.sign-section {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-  
-  .container {
+}
+
+.container {
     display: flex;
-  }
-  
-  .signinBox, .signupBox {
+}
+
+.signinBox,
+.signupBox {
     width: 400px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -27,40 +32,48 @@ body, h1, h2, p, form {
     margin: 20px;
     padding: 40px;
     text-align: center;
-  }
+}
 
-  
-  
-  .formBox {
+.sign-message {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #977331;
+}
+
+.sign-message.success {
+    color: #977331;
+}
+
+.formBox {
     padding: 20px;
-  }
-  
-  h2 {
+}
+
+h2 {
     margin-bottom: 20px;
     color: #333;
-  }
+}
 
-  p {
+p {
     color: #333;
-  }
-  
-  form {
+}
+
+form {
     text-align: center;
-  }
-  
-  input[type="text"],
-  input[type="password"],
-  input[type="email"] {
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
     width: 90%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-  }
-  
-  input[type="submit"] {
-    width: 280px; 
+}
+
+input[type="submit"] {
+    width: 280px;
     margin: 0 auto;
     padding: 10px;
     margin-top: 10px;
@@ -70,50 +83,57 @@ body, h1, h2, p, form {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-  }
-  
-  
-  a {
+}
+
+a {
     text-decoration: none;
     color: #977331;
-  }
-  
-  .signup a {
-    font-weight: bold;
-  }
-  
-  @media (max-width: 768px) {
-    section {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .signinBox, .signupBox {
-      width: 90%;
-    }
-  }
+}
 
-  .formBox h2 {
+.signup a {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signinBox,
+    .signupBox {
+        width: 90%;
+    }
+}
+
+.formBox h2 {
     color: #333;
     font-family: monospace;
-    overflow: hidden; 
-    border-right: .15em solid orange; 
-    white-space: nowrap; 
-    margin: 0 auto; 
-    letter-spacing: .15em;
-    animation: 
-      typing 3.5s steps(30, end),
-      blink-caret .5s step-end infinite;
-  }
-  
-  /* The typing effect */
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-  }
-  
-  /* The typewriter cursor effect */
-  @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: orange }
-  }
+    overflow: hidden;
+    border-right: 0.15em solid orange;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0.15em;
+    animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: orange;
+    }
+}
