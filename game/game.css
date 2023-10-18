@@ -2,7 +2,7 @@
 
 /* Set the default font for the entire page, center the content both horizontally and vertically, 
    set the height to cover the entire viewport, and set the background color. */
-   .game-page {
+.game-page {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -61,7 +61,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    transition: transform 1s; /* Smooth transition for the flipping effect */
+    transition: transform 0.7s; /* Smooth transition for the flipping effect */
     background-size: cover; /* Ensures the background image covers the entire card */
     background-position: center; /* Centers the background image */
 }
