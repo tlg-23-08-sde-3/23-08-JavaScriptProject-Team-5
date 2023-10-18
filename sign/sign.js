@@ -1,5 +1,7 @@
 // Function to toggle between signup and signin forms
-function toggleForm() {
+function toggleForm(event) {
+    event.preventDefault();
+    console.log("toggleForm called");
     const signInBox = document.querySelector(".signinBox");
     const signUpBox = document.querySelector(".signupBox");
 
