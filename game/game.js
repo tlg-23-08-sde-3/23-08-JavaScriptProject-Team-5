@@ -231,7 +231,7 @@ function gameEnd() {
   // Display the points earned to the player
   const gameBoard = document.getElementById("gameBoard");
   const timerElement = document.getElementById("timer");
-  const gameContainer = document.getElementById("container");
+  const gameContainer = document.getElementById("game-container");
 
   // Create a message to inform the player about the game end place it outside game container
   const endMessage = document.createElement("div");
