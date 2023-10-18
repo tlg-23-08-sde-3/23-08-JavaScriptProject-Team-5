@@ -109,3 +109,59 @@ h2 {
     font-size: x-large;
     font-weight: bold;
 }
+
+/* Styling for the credits container */
+.credits-container {
+    width: 400px;
+    height: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    text-align: center;
+    padding: 20px;
+}
+
+.credits-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Styling for the credits title */
+.credits-title {
+    color: #977331;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Styling for the list of developers */
+.developers-list {
+    list-style: none;
+    padding: 0;
+}
+
+.developers-list li {
+    color: #333;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+/* Center the "Back to Menu" button horizontally */
+.credits-button {
+    display: block;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #977331;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

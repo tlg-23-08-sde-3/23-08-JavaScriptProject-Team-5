@@ -2,7 +2,7 @@
 
 /* Set the default font for the entire page, center the content both horizontally and vertically, 
    set the height to cover the entire viewport, and set the background color. */
-.game-page {
+   .game-page {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -100,5 +100,81 @@
 @media (max-width: 680px) {
     .game-container {
         flex-direction: column;
+    }
+}
+
+/* scoreboard.css */
+
+/* Making the background consistent */
+.scoreboard-body {
+    font-family: Signika Negative, sans-serif;
+    background-color: #f8dd30;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+/* Styling the main container for consistency */
+.scoreboard-container {
+    flex-direction: column;
+    max-width: 650px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+}
+
+/* Styling the title for visual appeal */
+.scoreboard-title {
+    color: #977331;
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* Styling the table to make it visually appealing */
+.scoreboard-table {
+    width: 500px;
+    border-collapse: collapse;
+}
+
+.scoreboard-table th,
+.scoreboard-table td {
+    color: #333;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Styling the button to match the other buttons */
+.scoreboard-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #977331;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Scrollable table container */
+.scoreboard-scrollable-table {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .scoreboard-container {
+        width: 50%;
     }
 }
