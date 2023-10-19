@@ -85,6 +85,8 @@ async function handleUserLogin(event) {
         const data = await response.json();
 
         if (response.status === 200) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("userId", data.userId);
             document.getElementById("signinMessage").textContent =
                 "Logged in successfully.";
             document.getElementById("signinMessage").classList.add("success");
