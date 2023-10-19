@@ -8,6 +8,7 @@ const difficulties = {
 let currentDifficulty;
 let remainingTime;
 let images = [];
+let timerInterval;
 
 // Set the game difficulty to "easy" by default.
 // setDifficulty("hard");
@@ -40,29 +41,51 @@ function adjustGridColumns() {
   }
 }
 
+function createGameTimer() {
+  const timerContainer = document.getElementById("timer-container");
+
+  if (timerContainer) {
+    // Create the timer element
+    const timerElement = document.createElement("div");
+    timerElement.id = "timer";
+    timerElement.textContent = "Remaining Time: 00:00"; // Initialize with 00:00
+
+    // Append the timer element to the container
+    timerContainer.appendChild(timerElement);
+
+    // Start the timer logic based on difficulty level selcted
+    let remainingTime = currentDifficulty.duration;
+
+    // Function to update the game timer.
+    function updateTimer() {
+      remainingTime--;
+      const minutes = Math.floor(remainingTime / 60);
+      const seconds = remainingTime % 60;
+
+      timerElement.textContent =
+        "Remaining Time: " +
+        (minutes < 10 ? "0" + minutes : minutes) +
+        ":" +
+        (seconds < 10 ? "0" + seconds : seconds);
+
+      // Stop the timer when the remaining time reaches zero.
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        gameEnd();
+      }
+    }
+
+    // Start the game timer.
+    timerInterval = setInterval(updateTimer, 1000);
+  } else {
+    console.error("Timer container not found.");
+  }
+}
+
 // Event listener to run the game logic once the DOM is fully loaded.
 document.addEventListener("DOMContentLoaded", function () {
   const gameBoard = document.getElementById("gameBoard");
   const timerElement = document.getElementById("timer");
-
-  // Function to update the game timer.
-  function updateTimer() {
-    remainingTime--;
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
-
-    timerElement.textContent =
-      "Remaining Time: " +
-      (minutes < 10 ? "0" + minutes : minutes) +
-      ":" +
-      (seconds < 10 ? "0" + seconds : seconds);
-
-    // Stop the timer when the remaining time reaches zero.
-    if (remainingTime <= 0) {
-      clearInterval(timerInterval);
-      gameEnd();
-    }
-  }
 
   // Event listener to run the game logic when the form is submitted.
   document.addEventListener("startGame", function (event) {
@@ -78,9 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
     adjustGridColumns();
     initializeGame(searchInput);
   });
-
-  // Start the game timer.
-  const timerInterval = setInterval(updateTimer, 1000);
 });
 
 // Function to fetch a random image from the server based on user prompt
@@ -144,6 +164,7 @@ async function initializeGame(userPrompt) {
       card.addEventListener("click", handleCardClick);
       gameBoard.appendChild(card);
     }
+    createGameTimer();
   } catch (error) {
     console.error("Error initializing the game:", error);
   }
@@ -232,7 +253,12 @@ function gameEnd() {
     }
   }
 
-
+  // remove the timer element
+  const timerElement = document.getElementById("timer");
+  if (timerElement) {
+    timerElement.remove();
+    clearInterval(timerInterval);
+  }
 
   // Calculate the points scored based on the remaining time
   const points = remainingTime * 100;
