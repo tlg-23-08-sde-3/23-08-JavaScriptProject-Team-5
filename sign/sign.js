@@ -94,23 +94,23 @@ async function handleUserLogin(event) {
 
     const data = await response.json();
 
-    if (response.status === 200) {
-      handleSuccessfulAuth(username); // Pass the username to the function
-      document.getElementById("signinMessage").textContent =
-        "Logged in successfully.";
-      document.getElementById("signinMessage").classList.add("success");
-      console.log("Logged in successfully.");
-      setTimeout(() => {
-        handleSuccessfulAuth(username);
-      }, 1750);
-    } else {
-      document.getElementById("signinMessage").textContent = data.message;
+        if (response.status === 200) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("userId", data.userId);
+            document.getElementById("signinMessage").textContent =
+                "Logged in successfully.";
+            document.getElementById("signinMessage").classList.add("success");
+            setTimeout(() => {
+                handleSuccessfulAuth();
+            }, 1750);
+        } else {
+            document.getElementById("signinMessage").textContent = data.message;
+        }
+    } catch (error) {
+        document.getElementById("signinMessage").textContent =
+            "An error occurred during login.";
     }
-  } catch (error) {
-    document.getElementById("signinMessage").textContent =
-      "An error occurred during login.";
-  }
-  event.target.reset();
+    event.target.reset();
 }
 
 // Attach the toggleForm function to both signup and signin links
