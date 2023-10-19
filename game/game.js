@@ -7,6 +7,7 @@ const difficulties = {
 let currentDifficulty;
 let remainingTime;
 let timerInterval;
+let isPaused = false;
 
 document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("startGame", function (event) {
@@ -15,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
         adjustGridColumns();
         initializeGame(searchInput);
     });
+    const pauseButton = document.getElementById("pauseButton");
+    pauseButton.addEventListener("click", togglePause);
 });
 
 function setDifficulty(difficulty) {
@@ -52,9 +55,58 @@ function createGameTimer() {
     timerContainer.appendChild(timerElement);
 
     timerInterval = setInterval(updateTimer, 1000);
+    // Display the "Pause" button
+    document.querySelector("#pause").style.display = "block";
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+    if (isPaused) {
+        clearInterval(timerInterval);
+        document.getElementById("pauseButton").innerText = "Resume Game";
+        saveGameState();
+    } else {
+        loadGameState();
+        timerInterval = setInterval(updateTimer, 1000);
+        document.getElementById("pauseButton").innerText = "Pause Game";
+    }
+}
+
+function saveGameState() {
+    const gameState = {
+        remainingTime: remainingTime,
+        flippedCards: Array.from(
+            document.querySelectorAll(".card.flipped")
+        ).map((card) => card.dataset.imageIndex),
+        cardOrder: Array.from(document.querySelectorAll(".card")).map(
+            (card) => card.dataset.imageIndex
+        ),
+    };
+
+    localStorage.setItem("gameState", JSON.stringify(gameState));
+}
+
+function loadGameState() {
+    const savedState = JSON.parse(localStorage.getItem("gameState"));
+    if (!savedState) return;
+
+    remainingTime = savedState.remainingTime;
+    const gameBoard = document.getElementById("gameBoard");
+    const cards = Array.from(gameBoard.children);
+
+    // Restore card order
+    savedState.cardOrder.forEach((imageIndex, i) => {
+        gameBoard.appendChild(cards[imageIndex]);
+    });
+
+    // Restore flipped cards
+    savedState.flippedCards.forEach((imageIndex) => {
+        cards[imageIndex].classList.add("flipped");
+    });
 }
 
 function updateTimer() {
+    if (isPaused) return;
     remainingTime--;
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
@@ -107,6 +159,7 @@ function shuffleArray(array) {
 }
 
 function handleCardClick(event) {
+    if (isPaused) return;
     const card = event.currentTarget;
     if (
         !card.classList.contains("flipped") &&
