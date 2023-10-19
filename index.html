@@ -1,140 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Memory Game</title>
-        <link rel="stylesheet" href="menu/menu.css" />
-        <link rel="stylesheet" href="game/game.css" />
-        <link rel="stylesheet" href="sign/sign.css" />
-    </head>
-    <body>
-        <!-- Sign In/Sign Up Section -->
-        <section class="sign-section">
-            <div class="container">
-                <div class="signinBox">
-                    <div class="formBox">
-                        <form action="" onsubmit="return false;">
-                            <h2>SIGN IN TO MEMORY GAME..</h2>
-                            <br />
-                            <input
-                                type="text"
-                                name="username"
-                                placeholder="Username"
-                                required
-                            />
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                required
-                            />
-                            <input
-                                type="submit"
-                                name="login"
-                                value="Login"
-                            /><br /><br />
-                            <p class="signup">
-                                Don't have an account ?
-                                <a href="#" onclick="toggleForm();">Sign Up.</a>
-                            </p>
-                        </form>
-                        <div class="sign-message" id="signinMessage"></div>
-                    </div>
-                </div>
-                <div class="signupBox" style="display: none">
-                    <div class="formBox">
-                        <form action="" onsubmit="return false;">
-                            <h2>CREATE ACCOUNT TO PLAY..</h2>
-                            <br />
-                            <input
-                                type="text"
-                                name="username"
-                                placeholder="Username"
-                                required
-                            />
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email Address"
-                                required
-                            />
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Create Password"
-                                required
-                            />
-                            <input
-                                type="password"
-                                name="confirm_password"
-                                placeholder="Confirm Password"
-                                required
-                            />
-                            <input
-                                type="submit"
-                                name="signup"
-                                value="Sign Up"
-                            /><br /><br />
-                            <p class="signup">
-                                Already have an account ?
-                                <a href="#" onclick="toggleForm();">Sign in.</a>
-                            </p>
-                        </form>
-                        <div class="sign-message" id="signupMessage"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <div id="game-container">
-            <!-- Game Menu Section -->
-            <div class="game_menu" style="display: none">
-                <ul class="nav">
-                    <li class="btn" id="new-game">New Game</li>
-                    <li class="btn" id="score-board">Scoreboard</li>
-                    <li class="btn" id="credits-button">Credits</li>
-                </ul>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Card Game</title>
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <div class="bg-card-grid">
+      <script>
+        const imageFolder = "images/";
 
-            <div
-                class="game_menu_difficulty"
-                id="game_menu_difficulty"
-                style="display: none"
-            >
-                <div id="difficulty-options" class="dropdown">
-                    <ul class="nav" id="difficulty-buttons">
-                        <li class="btn" id="easy">Easy</li>
-                        <li class="btn" id="medium">Medium</li>
-                        <li class="btn" id="hard">Hard</li>
-                    </ul>
-                    <div id="search-criteria" style="display: none">
-                        <h2>What do you like for game tiles images?</h2>
-                        <br />
-                        <input
-                            type="text"
-                            id="search-input"
-                            placeholder="Enter image search keyword"
-                        /><br /><br />
-                        <button type="submit" id="search-button">
-                            START GAME
-                        </button>
+        const numColumns = Math.floor(window.innerWidth / 300);
+        const numRows = Math.floor(window.innerHeight / 300);
+
+        const numCards = numColumns * numRows;
+
+        for (let i = 1; i <= numCards; i++) {
+          createCardWithImages(i);
+        }
+
+        function createCardWithImages(cardNumber) {
+          const card = document.createElement("div");
+          card.className = "bg-card";
+
+          const frontFilename = `image-${cardNumber}.jpg`;
+          const backFilename = `image-${cardNumber + 5}.jpg`;
+          const frontImageUrl = `${imageFolder}${frontFilename}`;
+          const backImageUrl = `${imageFolder}${backFilename}`;
+
+          card.innerHTML = `
+                    <div class="bg-card-inner">
+                        <div class="bg-card-face">
+                            <img class="bg-card-img" src="${frontImageUrl}" alt="Image Front">
+                        </div>
+                        <div class="bg-card-back">
+                            <img class="bg-card-img" src="${backImageUrl}" alt="Image Back">
+                        </div>
                     </div>
-                </div>
-            </div>
+                `;
 
-            <div class="game-page" id="game-page" style="display: none">
-                <div id="timer-container"></div>
-                <div class="game-container" id="gameBoard"></div>
-            </div>
-            <div class="user-info">
-                <span id="welcome-message"></span>
-                <button id="logout-button">Logout</button>
-            </div>
-        </div>
+          document.querySelector(".bg-card-grid").appendChild(card);
+        }
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.1/TweenMax.min.js"></script>
-        <script src="menu/menu.js"></script>
-        <script src="game/game.js"></script>
-        <script src="sign/sign.js"></script>
-    </body>
+        function flipRandomCard() {
+          const cards = document.querySelectorAll(".bg-card-inner");
+          const randomIndex = Math.floor(Math.random() * cards.length);
+          const card = cards[randomIndex];
+          card.style.transform = "rotateY(180deg)";
+          setTimeout(() => {
+            card.style.transform = "rotateY(0deg)";
+            setTimeout(flipRandomCard, Math.random() * 3000 + 1000);
+          }, 1000);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          flipRandomCard(); // Call the function after the DOM is fully loaded
+        });
+      </script>
+    </div>
+
+    <div class="centered-box">
+      <h1>WELCOME TO MEMORY GAME...</h1>
+      <button class="btn"><a href="game.html" target="_self">ENTER</a></button>
+    </div>
+  </body>
 </html>
