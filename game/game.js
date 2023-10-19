@@ -50,8 +50,8 @@ function createGameTimer() {
         timerElement.id = "timer";
         timerElement.textContent = "Remaining Time: 00:00"; // Initialize with 00:00
 
-        // Append the timer element to the container
-        timerContainer.appendChild(timerElement);
+    // Append the timer element to the container
+    timerContainer.appendChild(timerElement);
 
         // Function to update the game timer.
         function updateTimer() {
