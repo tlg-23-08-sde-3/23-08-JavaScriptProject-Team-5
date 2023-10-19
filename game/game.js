@@ -53,9 +53,6 @@ function createGameTimer() {
     // Append the timer element to the container
     timerContainer.appendChild(timerElement);
 
-    // Start the timer logic based on difficulty level selcted
-    let remainingTime = currentDifficulty.duration;
-
     // Function to update the game timer.
     function updateTimer() {
       remainingTime--;
@@ -253,6 +250,9 @@ function gameEnd() {
     }
   }
 
+    // Calculate the points scored based on the remaining time
+    const points = remainingTime * 100;
+
   // remove the timer element
   const timerElement = document.getElementById("timer");
   if (timerElement) {
@@ -260,8 +260,7 @@ function gameEnd() {
     clearInterval(timerInterval);
   }
 
-  // Calculate the points scored based on the remaining time
-  const points = remainingTime * 100;
+
 
   // Display the points earned to the player
   const gameContainer = document.getElementById("game-container");
