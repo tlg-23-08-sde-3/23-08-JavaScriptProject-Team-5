@@ -8,6 +8,15 @@ let currentDifficulty;
 let remainingTime;
 let timerInterval;
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("startGame", function (event) {
+        const { searchInput, selectedDifficulty } = event.detail;
+        setDifficulty(selectedDifficulty);
+        adjustGridColumns();
+        initializeGame(searchInput);
+    });
+});
+
 function setDifficulty(difficulty) {
     if (difficulties[difficulty]) {
         currentDifficulty = difficulties[difficulty];
@@ -216,15 +225,6 @@ async function gameEnd() {
     gameContainer.appendChild(endMessage);
     renderScoreboard();
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.addEventListener("startGame", function (event) {
-        const { searchInput, selectedDifficulty } = event.detail;
-        setDifficulty(selectedDifficulty);
-        adjustGridColumns();
-        initializeGame(searchInput);
-    });
-});
 
 async function initializeGame(userPrompt) {
     const cardCount = currentDifficulty.totalCards;
