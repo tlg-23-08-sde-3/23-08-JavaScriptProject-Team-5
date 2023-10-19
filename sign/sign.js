@@ -62,7 +62,7 @@ async function handleUserRegistration(event) {
             document.getElementById("signupMessage").classList.add("success");
             setTimeout(() => {
                 toggleForm(event);
-            }, 1750);
+            }, 1000);
         } else {
             document.getElementById("signupMessage").textContent = data.message;
         }
@@ -92,7 +92,6 @@ async function handleUserLogin(event) {
         const data = await response.json();
 
         if (response.status === 200) {
-            handleSuccessfulAuth(username);
             localStorage.setItem("username", username);
             localStorage.setItem("token", data.token);
             localStorage.setItem("userId", data.userId);
@@ -101,7 +100,7 @@ async function handleUserLogin(event) {
             document.getElementById("signinMessage").classList.add("success");
             setTimeout(() => {
                 handleSuccessfulAuth(username);
-            }, 1750);
+            }, 1000);
         } else {
             document.getElementById("signinMessage").textContent = data.message;
         }
