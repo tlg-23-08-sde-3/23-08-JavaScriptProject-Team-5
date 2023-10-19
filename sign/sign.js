@@ -133,6 +133,7 @@ function logout() {
  // clear the userid and token from local storage
   localStorage.removeItem("userId");
   localStorage.removeItem("token");
+  localStorage.removeItem("username");
   location.reload(); 
 }
 
