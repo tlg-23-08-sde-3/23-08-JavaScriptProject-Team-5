@@ -55,8 +55,6 @@ function createGameTimer() {
     timerContainer.appendChild(timerElement);
 
     timerInterval = setInterval(updateTimer, 1000);
-    // Display the "Pause" button
-    document.querySelector("#pause").style.display = "block";
 }
 
 function togglePause() {
@@ -254,6 +252,7 @@ async function gameEnd() {
     const timeString = `${Math.floor(remainingTime / 60)}m ${
         remainingTime % 60
     }s`;
+    isPaused = false;
 
     await saveScoreToBackend(username, points, difficultyString, timeString);
 
@@ -274,6 +273,7 @@ async function gameEnd() {
     document.getElementById("difficulty-buttons").style.display = "";
     document.getElementById("search-criteria").style.display = "none";
     document.getElementById("search-input").value = "";
+    document.querySelector("#pause").style.display = "none";
 
     gameContainer.appendChild(endMessage);
     renderScoreboard();
@@ -311,6 +311,8 @@ async function initializeGame(userPrompt) {
         card.addEventListener("click", handleCardClick);
         gameBoard.appendChild(card);
     });
+    // Display the "Pause" button
+    document.querySelector("#pause").style.display = "block";
 
     createGameTimer();
 }
