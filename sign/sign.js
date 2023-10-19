@@ -36,9 +36,6 @@ function handleSuccessfulAuth(username) {
 
   // Display the "Logout" button
   document.querySelector(".user-info").style.display = "block";
-
-  // place the user token in local storage
-  localStorage.setItem("userToken", username);
 }
 
 // Function to handle user registration
@@ -95,13 +92,15 @@ async function handleUserLogin(event) {
     const data = await response.json();
 
         if (response.status === 200) {
+            handleSuccessfulAuth(username); 
+            localStorage.setItem("username", username);
             localStorage.setItem("token", data.token);
             localStorage.setItem("userId", data.userId);
             document.getElementById("signinMessage").textContent =
                 "Logged in successfully.";
             document.getElementById("signinMessage").classList.add("success");
             setTimeout(() => {
-                handleSuccessfulAuth();
+                handleSuccessfulAuth(username);
             }, 1750);
         } else {
             document.getElementById("signinMessage").textContent = data.message;
@@ -131,8 +130,9 @@ document
 
 // Function to handle the logout action
 function logout() {
- // clear the user token from local storage
-  localStorage.removeItem("userToken"); 
+ // clear the userid and token from local storage
+  localStorage.removeItem("userId");
+  localStorage.removeItem("token");
   location.reload(); 
 }
 
@@ -143,15 +143,17 @@ document.getElementById("logout-button").addEventListener("click", logout);
 
 function checkLoggedIn() {
   // Get the user token from local storage
-  const userToken = localStorage.getItem("userToken");
+  const userToken = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const username = localStorage.getItem("username");
 
   // If the user token exists, display the game menu
-  if (userToken) {
+    if (userToken && userId) {
     document.querySelector(".game_menu").style.display = "flex";
     document.querySelector(".sign-section").style.display = "none";
     document.querySelector(".user-info").style.display = "block";
     document.getElementById("welcome-message").textContent =
-      "Welcome, " + userToken + "!";
+      "Welcome, " + username + "!";
   } else {
     document.querySelector(".game_menu").style.display = "none";
     document.querySelector(".sign-section").style.display = "flex";
