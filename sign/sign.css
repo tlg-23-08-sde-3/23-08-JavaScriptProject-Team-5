@@ -107,28 +107,30 @@ a {
 }
 
 .user-info {
-  display: none;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  text-align: right;
-  z-index: 1000;
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+    z-index: 1000;
 }
 
 #logout-button {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #977331;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #welcome-message {
-  font-weight: bold;
-  color: #333;
-  margin-right: 10px;
+    font-weight: bold;
+    color: #977331;
+    margin-right: 10px;
+    font-size: 1.2em;
 }
-
 
 .formBox h2 {
     color: #333;

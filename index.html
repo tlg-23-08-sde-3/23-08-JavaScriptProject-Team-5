@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Memory Card Game</title>
-    <link rel="stylesheet" href="landing.css" />
-  </head>
-  <body>
-    <div class="bg-card-grid">
-      <script>
-        const imageFolder = "images/";
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Memory Card Game</title>
+        <link rel="stylesheet" href="landing.css" />
+    </head>
+    <body>
+        <div class="bg-card-grid">
+            <script>
+                const imageFolder = "images/";
 
-        const numColumns = Math.floor(window.innerWidth / 300);
-        const numRows = Math.floor(window.innerHeight / 300);
+                const numColumns = Math.floor(window.innerWidth / 300);
+                const numRows = Math.floor(window.innerHeight / 300);
 
-        const numCards = numColumns * numRows;
+                const numCards = numColumns * numRows;
 
-        for (let i = 1; i <= numCards; i++) {
-          createCardWithImages(i);
-        }
+                for (let i = 1; i <= numCards; i++) {
+                    createCardWithImages(i);
+                }
 
-        function createCardWithImages(cardNumber) {
-          const card = document.createElement("div");
-          card.className = "bg-card";
+                function createCardWithImages(cardNumber) {
+                    const card = document.createElement("div");
+                    card.className = "bg-card";
 
-          const frontFilename = `image-${cardNumber}.jpg`;
-          const backFilename = `image-${cardNumber + 5}.jpg`;
-          const frontImageUrl = `${imageFolder}${frontFilename}`;
-          const backImageUrl = `${imageFolder}${backFilename}`;
+                    const frontFilename = `image-${cardNumber}.jpg`;
+                    const backFilename = `image-${cardNumber + 5}.jpg`;
+                    const frontImageUrl = `${imageFolder}${frontFilename}`;
+                    const backImageUrl = `${imageFolder}${backFilename}`;
 
-          card.innerHTML = `
+                    card.innerHTML = `
                     <div class="bg-card-inner">
                         <div class="bg-card-face">
                             <img class="bg-card-img" src="${frontImageUrl}" alt="Image Front">
@@ -40,29 +40,33 @@
                     </div>
                 `;
 
-          document.querySelector(".bg-card-grid").appendChild(card);
-        }
+                    document.querySelector(".bg-card-grid").appendChild(card);
+                }
 
-        function flipRandomCard() {
-          const cards = document.querySelectorAll(".bg-card-inner");
-          const randomIndex = Math.floor(Math.random() * cards.length);
-          const card = cards[randomIndex];
-          card.style.transform = "rotateY(180deg)";
-          setTimeout(() => {
-            card.style.transform = "rotateY(0deg)";
-            setTimeout(flipRandomCard, Math.random() * 3000 + 1000);
-          }, 1000);
-        }
+                function flipRandomCard() {
+                    const cards = document.querySelectorAll(".bg-card-inner");
+                    const randomIndex = Math.floor(
+                        Math.random() * cards.length
+                    );
+                    const card = cards[randomIndex];
+                    card.style.transform = "rotateY(180deg)";
+                    setTimeout(() => {
+                        card.style.transform = "rotateY(0deg)";
+                        setTimeout(flipRandomCard, Math.random() * 3000 + 1000);
+                    }, 1000);
+                }
 
-        document.addEventListener("DOMContentLoaded", function () {
-          flipRandomCard(); // Call the function after the DOM is fully loaded
-        });
-      </script>
-    </div>
+                document.addEventListener("DOMContentLoaded", function () {
+                    flipRandomCard(); // Call the function after the DOM is fully loaded
+                });
+            </script>
+        </div>
 
-    <div class="centered-box">
-      <h1>WELCOME TO MEMORY GAME...</h1>
-      <button class="btn"><a href="game.html" target="_self">ENTER</a></button>
-    </div>
-  </body>
+        <div class="centered-box">
+            <h1>WELCOME TO MEMORY GAME...</h1>
+            <button class="btn">
+                <a href="game.html" target="_self">ENTER</a>
+            </button>
+        </div>
+    </body>
 </html>
