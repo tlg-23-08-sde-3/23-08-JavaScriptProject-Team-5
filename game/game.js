@@ -1,4 +1,3 @@
-// Define the game difficulties and their respective settings.
 const difficulties = {
     easy: { rows: 4, cols: 4, totalCards: 16, duration: 60 },
     medium: { rows: 4, cols: 5, totalCards: 20, duration: 75 },
@@ -7,13 +6,8 @@ const difficulties = {
 
 let currentDifficulty;
 let remainingTime;
-let images = [];
 let timerInterval;
 
-// Set the game difficulty to "easy" by default.
-// setDifficulty("hard");
-
-// Function to set the game difficulty.
 function setDifficulty(difficulty) {
     if (difficulties[difficulty]) {
         currentDifficulty = difficulties[difficulty];
@@ -23,100 +17,62 @@ function setDifficulty(difficulty) {
     }
 }
 
-// Function to adjust the game grid columns based on the viewport width.
 function adjustGridColumns() {
     const gameBoard = document.getElementById("gameBoard");
     const viewportWidth = window.innerWidth;
 
-    if (currentDifficulty) {
-        if (viewportWidth <= 680) {
-            gameBoard.style.gridTemplateColumns = `repeat(2, 1fr)`;
-        } else if (viewportWidth <= 900) {
-            gameBoard.style.gridTemplateColumns = `repeat(3, 1fr)`;
-        } else {
-            // Calculate the number of columns based on the current difficulty
-            const numColumns = currentDifficulty.cols;
-            gameBoard.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
-        }
-    }
+    if (!currentDifficulty) return;
+
+    let numColumns = currentDifficulty.cols;
+    if (viewportWidth <= 680) numColumns = 2;
+    else if (viewportWidth <= 900) numColumns = 3;
+
+    gameBoard.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
 }
 
 function createGameTimer() {
     const timerContainer = document.getElementById("timer-container");
-
-    if (timerContainer) {
-        // Create the timer element
-        const timerElement = document.createElement("div");
-        timerElement.id = "timer";
-        timerElement.textContent = "Remaining Time: 00:00"; // Initialize with 00:00
-
-        // Append the timer element to the container
-        timerContainer.appendChild(timerElement);
-
-        // Function to update the game timer.
-        function updateTimer() {
-            remainingTime--;
-            const minutes = Math.floor(remainingTime / 60);
-            const seconds = remainingTime % 60;
-
-            timerElement.textContent =
-                "Remaining Time: " +
-                (minutes < 10 ? "0" + minutes : minutes) +
-                ":" +
-                (seconds < 10 ? "0" + seconds : seconds);
-
-            // Stop the timer when the remaining time reaches zero.
-            if (remainingTime <= 0) {
-                clearInterval(timerInterval);
-                gameEnd();
-            }
-        }
-
-        // Start the game timer.
-        timerInterval = setInterval(updateTimer, 1000);
-    } else {
+    if (!timerContainer) {
         console.error("Timer container not found.");
+        return;
+    }
+
+    const timerElement = document.createElement("div");
+    timerElement.id = "timer";
+    timerElement.textContent = "Remaining Time: 00:00";
+    timerContainer.appendChild(timerElement);
+
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    remainingTime--;
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    const timerElement = document.getElementById("timer");
+    timerElement.textContent = `Remaining Time: ${String(minutes).padStart(
+        2,
+        "0"
+    )}:${String(seconds).padStart(2, "0")}`;
+
+    if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        gameEnd();
     }
 }
 
-// Event listener to run the game logic once the DOM is fully loaded.
-document.addEventListener("DOMContentLoaded", function () {
-    const gameBoard = document.getElementById("gameBoard");
-    const timerElement = document.getElementById("timer");
-
-    // Event listener to run the game logic when the form is submitted.
-    document.addEventListener("startGame", function (event) {
-        const { searchInput, selectedDifficulty } = event.detail;
-        console.log("Received search input in game-page.js:", searchInput);
-        console.log(
-            "Received difficulty level in game-page.js:",
-            selectedDifficulty
-        );
-
-        // You can now use the search input to initialize the game
-        setDifficulty(selectedDifficulty);
-        adjustGridColumns();
-        initializeGame(searchInput);
-    });
-});
-
-// Function to fetch a random image from the server based on user prompt
 async function fetchRandomImage(userPrompt) {
     try {
         const response = await fetch("/api/pixabay/create", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt: userPrompt }),
         });
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch image");
-        }
+        if (!response.ok) throw new Error("Failed to fetch image");
 
         const data = await response.json();
-
         return data.imageUrl;
     } catch (error) {
         console.error("Error fetching image:", error);
@@ -124,64 +80,15 @@ async function fetchRandomImage(userPrompt) {
     }
 }
 
-async function initializeGame(userPrompt) {
-    const cardCount = currentDifficulty.totalCards;
-    const uniqueImageCount = cardCount / 2;
-
-    try {
-        // Fetch unique images for the game
-        const uniqueImages = await fetchUniqueImages(
-            userPrompt,
-            uniqueImageCount
-        );
-
-        if (!uniqueImages || uniqueImages.length < uniqueImageCount) {
-            console.error("Not enough unique images fetched.");
-            return;
-        }
-
-        // Duplicate and shuffle the unique image URLs
-        const shuffledImages = shuffleArray([...uniqueImages, ...uniqueImages]);
-
-        // Generate the game cards with shuffled images
-        for (let i = 0; i < cardCount; i++) {
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.dataset.imageIndex = i;
-
-            const cardFront = document.createElement("div");
-            cardFront.classList.add("card-back");
-            cardFront.style.backgroundImage = `url('${shuffledImages[i]}')`;
-
-            const cardBack = document.createElement("div");
-            cardBack.classList.add("card-front");
-            cardBack.style.backgroundImage =
-                "url('https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736401_960_720.png')"; // Add a placeholder image URL here
-
-            card.appendChild(cardFront);
-            card.appendChild(cardBack);
-
-            card.addEventListener("click", handleCardClick);
-            gameBoard.appendChild(card);
-        }
-        createGameTimer();
-    } catch (error) {
-        console.error("Error initializing the game:", error);
-    }
-}
-
 async function fetchUniqueImages(userPrompt, count) {
     const uniqueImages = [];
     while (uniqueImages.length < count) {
         const imageUrl = await fetchRandomImage(userPrompt);
-        if (!uniqueImages.includes(imageUrl)) {
-            uniqueImages.push(imageUrl);
-        }
+        if (!uniqueImages.includes(imageUrl)) uniqueImages.push(imageUrl);
     }
     return uniqueImages;
 }
 
-// Shuffle the array randomly
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -192,13 +99,11 @@ function shuffleArray(array) {
 
 function handleCardClick(event) {
     const card = event.currentTarget;
-
     if (
         !card.classList.contains("flipped") &&
         document.querySelectorAll(".card.flipped").length < 2
     ) {
         card.classList.add("flipped");
-        console.log("Card flipped:", card);
     }
 
     if (document.querySelectorAll(".card.flipped").length === 2) {
@@ -206,41 +111,32 @@ function handleCardClick(event) {
     }
 }
 
-// Compare two flipped cards to check if they match
 function compareCards() {
-    const flippedCards = document.querySelectorAll(".card.flipped");
-    if (flippedCards.length === 2) {
-        const [card1, card2] = flippedCards;
-        const image1 = card1.querySelector(".card-back").style.backgroundImage;
-        const image2 = card2.querySelector(".card-back").style.backgroundImage;
-        console.log("Card images:", image1, image2);
+    const flippedCards = Array.from(document.querySelectorAll(".card.flipped"));
+    if (flippedCards.length !== 2) return;
 
-        if (image1 === image2) {
-            // Cards match, they stay flipped
+    const [card1, card2] = flippedCards;
+    const image1 = card1.querySelector(".card-back").style.backgroundImage;
+    const image2 = card2.querySelector(".card-back").style.backgroundImage;
+
+    if (image1 === image2) {
+        card1.classList.replace("flipped", "matched");
+        card2.classList.replace("flipped", "matched");
+    } else {
+        setTimeout(() => {
             card1.classList.remove("flipped");
-            card1.classList.add("matched");
-            console.log(card1.classList);
             card2.classList.remove("flipped");
-            card2.classList.add("matched");
-            console.log(card2.classList);
-        } else {
-            // Cards don't match, flip them back.
-            setTimeout(() => {
-                card1.classList.remove("flipped");
-                card2.classList.remove("flipped");
-            }, 500); // Adjust the time (in milliseconds) to show unmatched cards.
-        }
-
-        checkGameEnd();
+        }, 500);
     }
+
+    checkGameEnd();
 }
 
-// Implement game ending logic when all card pairs are matched
 function checkGameEnd() {
-    const matchedCards = document.querySelectorAll(".card.matched");
-    if (matchedCards.length === currentDifficulty.totalCards) {
-        // Game end logic
-        console.log("Game end");
+    if (
+        document.querySelectorAll(".card.matched").length ===
+        currentDifficulty.totalCards
+    ) {
         gameEnd();
     }
 }
@@ -249,20 +145,11 @@ async function saveScoreToBackend(username, points, difficulty, time) {
     try {
         const response = await fetch("/api/scores/save", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: username,
-                score: points,
-                difficulty: difficulty,
-                time: time,
-            }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, score: points, difficulty, time }),
         });
 
-        if (!response.ok) {
-            throw new Error("Failed to save score");
-        }
+        if (!response.ok) throw new Error("Failed to save score");
 
         console.log("Score saved successfully");
     } catch (error) {
@@ -283,12 +170,9 @@ async function getCurrentUser() {
             },
         });
 
-        if (response.status === 200) {
-            const user = await response.json();
-            return user;
-        } else {
-            return null;
-        }
+        if (response.status !== 200) return null;
+
+        return await response.json();
     } catch (error) {
         console.error("Error fetching user profile:", error);
         return null;
@@ -297,15 +181,9 @@ async function getCurrentUser() {
 
 async function gameEnd() {
     const gameBoard = document.getElementById("gameBoard");
-    if (gameBoard) {
-        while (gameBoard.firstChild) {
-            gameBoard.removeChild(gameBoard.firstChild);
-        }
-    }
+    while (gameBoard.firstChild) gameBoard.removeChild(gameBoard.firstChild);
 
-    // Calculate the points scored based on the remaining time
     const points = remainingTime * 100;
-
     const user = await getCurrentUser();
     const username = user ? user.username : "ErrorUsername";
     const difficultyString = Object.keys(difficulties).find(
@@ -317,32 +195,69 @@ async function gameEnd() {
 
     await saveScoreToBackend(username, points, difficultyString, timeString);
 
-    // remove the timer element
     const timerElement = document.getElementById("timer");
     if (timerElement) {
         timerElement.remove();
         clearInterval(timerInterval);
     }
 
-    // Display the points earned to the player
     const gameContainer = document.getElementById("game-container");
-
-    // Create a message to inform the player about the game end
     const endMessage = document.createElement("div");
     endMessage.classList.add("end-message");
     endMessage.textContent = `Game Over! You scored ${points} points.`;
 
-    // Hide the game page, game board, and timer element
     document.getElementById("game-page").style.display = "none";
-    // document.getElementById("gameBoard").style.display = "none";
-    // document.getElementById("timer").style.display = "none";
     document.getElementById("game_menu_difficulty").style.display = "none";
     document.getElementById("difficulty-options").style.display = "";
     document.getElementById("difficulty-buttons").style.display = "";
     document.getElementById("search-criteria").style.display = "none";
     document.getElementById("search-input").value = "";
 
-    // Append the end message and then render the scoreboard
     gameContainer.appendChild(endMessage);
     renderScoreboard();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("startGame", function (event) {
+        const { searchInput, selectedDifficulty } = event.detail;
+        setDifficulty(selectedDifficulty);
+        adjustGridColumns();
+        initializeGame(searchInput);
+    });
+});
+
+async function initializeGame(userPrompt) {
+    const cardCount = currentDifficulty.totalCards;
+    const uniqueImageCount = cardCount / 2;
+
+    const uniqueImages = await fetchUniqueImages(userPrompt, uniqueImageCount);
+    if (!uniqueImages || uniqueImages.length < uniqueImageCount) {
+        console.error("Not enough unique images fetched.");
+        return;
+    }
+
+    const shuffledImages = shuffleArray([...uniqueImages, ...uniqueImages]);
+    const gameBoard = document.getElementById("gameBoard");
+
+    shuffledImages.forEach((image, i) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.dataset.imageIndex = i;
+
+        const cardFront = document.createElement("div");
+        cardFront.classList.add("card-back");
+        cardFront.style.backgroundImage = `url('${image}')`;
+
+        const cardBack = document.createElement("div");
+        cardBack.classList.add("card-front");
+        cardBack.style.backgroundImage =
+            "url('https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736401_960_720.png')";
+
+        card.appendChild(cardFront);
+        card.appendChild(cardBack);
+        card.addEventListener("click", handleCardClick);
+        gameBoard.appendChild(card);
+    });
+
+    createGameTimer();
 }
