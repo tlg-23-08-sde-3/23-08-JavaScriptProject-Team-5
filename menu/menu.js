@@ -128,11 +128,11 @@ function renderScoreboard() {
     const tableHeader = document.createElement("thead");
     tableHeader.innerHTML = `
     <tr>
-        <th>#</th>
-        <th>Player</th>
-        <th>Score</th>
-        <th>Difficulty</th>
-        <th>Time</th>
+        <th style="color: #977331;">#</th>
+        <th style="color: #977331;">Player</th>
+        <th style="color: #977331;">Score</th>
+        <th style="color: #977331;">Difficulty</th>
+        <th style="color: #977331;">Time</th>
     </tr>
 `;
 
@@ -223,7 +223,7 @@ function showCredits() {
     const developersList = document.createElement("ul");
     developersList.classList.add("developers-list");
 
-    const developers = ["Alberto Leon", "Jojo George Mattm"];
+    const developers = ["Alberto Leon", "Jojo George Mattam"];
 
     // Add each developer to the list
     developers.forEach(function (developer) {
