@@ -1,8 +1,8 @@
 // Define the game difficulties and their respective settings.
 const difficulties = {
-    easy: { rows: 2, cols: 2, totalCards: 4, duration: 2 * 60 },
-    medium: { rows: 4, cols: 5, totalCards: 20, duration: 4 * 60 },
-    hard: { rows: 5, cols: 6, totalCards: 30, duration: 6 * 60 },
+    easy: { rows: 4, cols: 4, totalCards: 16, duration: 60 },
+    medium: { rows: 4, cols: 5, totalCards: 20, duration: 75 },
+    hard: { rows: 5, cols: 6, totalCards: 30, duration: 113 },
 };
 
 let currentDifficulty;
