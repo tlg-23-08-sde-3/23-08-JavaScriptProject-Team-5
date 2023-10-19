@@ -2,7 +2,7 @@
 
 /* Set the default font for the entire page, center the content both horizontally and vertically, 
    set the height to cover the entire viewport, and set the background color. */
-   .game-page {
+.game-page {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -187,7 +187,26 @@
     padding: 10px;
     z-index: 1; /* Make sure it's above other elements */
     color: #333;
-  }
+}
+
+#pauseButton {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #977331;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#pause {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    text-align: right;
+    z-index: 1000;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
