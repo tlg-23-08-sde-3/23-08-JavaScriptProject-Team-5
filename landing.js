@@ -1,24 +1,27 @@
 const imageFolder = "images/";
 
 const numColumns = Math.floor(window.innerWidth / 300);
-const numRows = Math.floor(window.innerHeight / 300);
+const numRows = Math.floor(window.innerHeight / 300) + 1;
+// calculate margin left
+const marginLeft = (window.innerWidth - numColumns * 300) / numColumns;
+document.querySelector(".bg-card-grid").style.marginLeft = `${marginLeft}px`;
 
 const numCards = numColumns * numRows;
 
 for (let i = 1; i <= numCards; i++) {
   // choose random number for i from 1 to 48
-  let imageNum = Math.floor(Math.random() * 48) + 1;
+  //   let imageNum = Math.floor(Math.random() * 48) + 1;
 
-  // check if the image is already in the grid
-  while (
-    document.querySelector(
-      `.bg-card-img[src="${imageFolder}image (${imageNum}).jpg"]`
-    )
-  ) {
-    imageNum = Math.floor(Math.random() * 48) + 1;
-  }
-  console.log(imageNum);
-  createCardWithImages(imageNum);
+  //   // check if the image is already in the grid
+  //   while (
+  //     document.querySelector(
+  //       `.bg-card-img[src="${imageFolder}image (${imageNum}).jpg"]`
+  //     )
+  //   ) {
+  //     imageNum = Math.floor(Math.random() * 48) + 1;
+  //   }
+  //   console.log(imageNum);
+  createCardWithImages(i);
 }
 
 function createCardWithImages(cardNumber) {
