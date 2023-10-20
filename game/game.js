@@ -164,7 +164,7 @@ async function loadGameState() {
       const cardBack = document.createElement("div");
       cardBack.classList.add("card-front");
       cardBack.style.backgroundImage =
-        "url('https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736401_960_720.png')";
+        "url('../images/tile.jpg')";
 
       card.appendChild(cardFront);
       card.appendChild(cardBack);
