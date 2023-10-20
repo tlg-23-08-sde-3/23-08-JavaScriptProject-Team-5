@@ -1,4 +1,4 @@
-// let URL = "https://memory-card-gamenode.onrender.com";
+let URL = "https://memory-card-gamenode.onrender.com";
 const difficulties = {
     easy: { rows: 4, cols: 4, totalCards: 16, duration: 60 },
     medium: { rows: 4, cols: 5, totalCards: 20, duration: 75 },
