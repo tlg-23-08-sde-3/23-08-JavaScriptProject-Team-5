@@ -1,4 +1,4 @@
-let API_URL = "https://memory-card-gamenode.onrender.com";
+window.API_URL = "https://memory-card-gamenode.onrender.com";
 
 // Function to toggle between signup and signin forms
 function toggleForm(event) {
