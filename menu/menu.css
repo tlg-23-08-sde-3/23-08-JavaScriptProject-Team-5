@@ -4,8 +4,8 @@ html {
     background: #f8dd30;
     color: #efefef;
     height: 100%;
-    margin: 0; 
-    padding: 0; 
+    margin: 0;
+    padding: 0;
 }
 
 .btn {
@@ -32,7 +32,15 @@ html {
     height: 100vh;
 }
 
-.nav,
+.nav {
+    width: 400px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    padding: 40px 40px; /* Adjust this value to make it consistent */
+}
+
 #search-criteria {
     width: 400px;
     height: 300px;

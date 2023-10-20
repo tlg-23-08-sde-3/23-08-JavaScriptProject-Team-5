@@ -1,3 +1,52 @@
+const resumeGameButton = document.getElementById("resume-game");
+resumeGameButton.classList.add("btn");
+resumeGameButton.style.display = "none";
+
+// Call the function when the page loads or at an appropriate time
+displayResumeButtonIfGameExists();
+
+async function checkForSavedGame(userId) {
+    try {
+        const response = await fetch(`/api/game/load/${userId}`);
+        if (response.ok) {
+            const gameState = await response.json();
+            return !!gameState; // Returns true if gameState exists, false otherwise
+        }
+        return false; // If the response is not okay, assume no saved game
+    } catch (error) {
+        console.error("Error checking for saved game:", error);
+        return false;
+    }
+}
+
+async function displayResumeButtonIfGameExists() {
+    const user = await getCurrentUser(); // Assuming this function is available to get the current user
+    console.log(user);
+    if (!user) {
+        console.error("No user found.");
+        return;
+    }
+
+    const hasSavedGame = await checkForSavedGame(user._id);
+    if (hasSavedGame) {
+        resumeGameButton.style.display = "block";
+    } else {
+        resumeGameButton.style.display = "none";
+    }
+}
+
+resumeGameButton.addEventListener("click", async function () {
+    // Hide the main menu
+    const mainMenu = document.querySelector(".game_menu");
+    mainMenu.style.display = "none";
+
+    // Load the saved game state and resume the game
+    await loadGameState(); // Assuming this function is available in the global scope or imported
+
+    // Display the game page
+    document.getElementById("game-page").style.display = "flex";
+});
+
 // Animation for the buttons
 animateButtons();
 
@@ -270,4 +319,26 @@ function renderScoreboard() {
     // Append the scoreboard container to the body of the document
     document.body.appendChild(scoreboardMain);
     populateScoreboard();
+}
+
+async function getCurrentUser() {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+
+    try {
+        const response = await fetch("/api/users/profile", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": token,
+            },
+        });
+
+        if (response.status !== 200) return null;
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching user profile:", error);
+        return null;
+    }
 }
