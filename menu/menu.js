@@ -1,16 +1,18 @@
+// Reference to the "Resume Game" button and initial setup
 const resumeGameButton = document.getElementById("resume-game");
 resumeGameButton.classList.add("btn");
 resumeGameButton.style.display = "none";
 
-// Call the function when the page loads or at an appropriate time
+// Check if there's a saved game to decide whether to display the "Resume Game" button
 displayResumeButtonIfGameExists();
 
+// Function to check if there's a saved game for the given user
 async function checkForSavedGame(userId) {
     try {
         const response = await fetch(`${API_URL}/api/game/load/${userId}`);
         if (response.ok) {
             const gameState = await response.json();
-            return !!gameState; // Returns true if gameState exists, false otherwise
+            return !!gameState; // Convert gameState to boolean: true if exists, false otherwise
         }
         return false;
     } catch (error) {
@@ -19,22 +21,19 @@ async function checkForSavedGame(userId) {
     }
 }
 
+// Function to display the "Resume Game" button if a saved game exists
 async function displayResumeButtonIfGameExists() {
     const user = await getCurrentUser();
-    console.log(user);
     if (!user) {
         console.log("No user found.");
         return;
     }
 
     const hasSavedGame = await checkForSavedGame(user._id);
-    if (hasSavedGame) {
-        resumeGameButton.style.display = "block";
-    } else {
-        resumeGameButton.style.display = "none";
-    }
+    resumeGameButton.style.display = hasSavedGame ? "block" : "none";
 }
 
+// Event listener to resume the saved game when the "Resume Game" button is clicked
 resumeGameButton.addEventListener("click", async function () {
     // Hide the main menu
     const mainMenu = document.querySelector(".game_menu");
@@ -47,32 +46,34 @@ resumeGameButton.addEventListener("click", async function () {
     document.getElementById("game-page").style.display = "flex";
 });
 
-// Animation for the buttons
+// Animate the buttons on the menu
 animateButtons();
 
-// Add a click event listener to the "New Game" button
+// Event listener for the "New Game" button to start a new game
 const newGameButton = document.getElementById("new-game");
 newGameButton.addEventListener("click", function () {
     // Hide the main menu
     const mainMenu = document.querySelector(".game_menu");
     mainMenu.style.display = "none";
 
-    // Show the difficulty options
+    // Display the difficulty options for the new game
     document.getElementById("game_menu_difficulty").style.display = "flex";
     const difficultyOptions = document.getElementById("difficulty-options");
     difficultyOptions.style.display = "block";
 });
 
+// Event listener for the "Score Board" button to view scores
 const scoreButton = document.getElementById("score-board");
 scoreButton.addEventListener("click", function () {
     // Hide the main menu
     const mainMenu = document.querySelector(".game_menu");
     mainMenu.style.display = "none";
 
+    // Render the scoreboard
     renderScoreboard();
 });
 
-// Add click event listeners to the difficulty options
+// Event listener for selecting the game difficulty
 const difficultyButtons = document.getElementById("difficulty-buttons");
 difficultyButtons.addEventListener("click", function (event) {
     if (
@@ -80,63 +81,65 @@ difficultyButtons.addEventListener("click", function (event) {
         event.target.id === "medium" ||
         event.target.id === "hard"
     ) {
-        // Get the selected difficulty
+        // Extract the selected difficulty
         var selectedDifficulty = event.target.id;
 
-        // Hide the difficulty buttons
+        // Hide the difficulty options
         difficultyButtons.style.display = "none";
 
-        // Show the search criteria input box
+        // Display the search criteria input for the game
         const searchCriteria = document.getElementById("search-criteria");
         searchCriteria.style.display = "block";
 
-        // Define the event handler function for the Search button
+        // Define the event handler for the "Search" button
         function searchButtonClickHandler() {
             document.getElementById("game_menu_difficulty").style.display =
                 "none";
             document.getElementById("game-page").style.display = "flex";
-            // Get the search criteria entered by the user
+
+            // Extract the search criteria provided by the user
             const searchInput = document.getElementById("search-input").value;
 
+            // Dispatch a custom event to start the game with the selected criteria
             const searchEvent = new CustomEvent("startGame", {
                 detail: { searchInput, selectedDifficulty },
             });
             document.dispatchEvent(searchEvent);
 
+            // Log the game start details
             if (searchInput) {
-                // User provided search criteria
                 console.log(
                     `Starting the game with difficulty: ${selectedDifficulty}`
                 );
                 console.log(`Image search criteria: ${searchInput}`);
             } else {
-                // User didn't enter any search criteria
                 console.log(
                     `Starting the game with difficulty: ${selectedDifficulty}`
                 );
             }
 
-            // Remove the event listener after it has been executed
+            // Cleanup: remove the event listener after it's executed
             searchButton.removeEventListener("click", searchButtonClickHandler);
         }
 
-        // Add the event listener to the "Search" button
+        // Attach the event handler to the "Search" button
         const searchButton = document.getElementById("search-button");
         searchButton.addEventListener("click", searchButtonClickHandler);
     }
 });
 
-// Add a click event listener to the "Credits" button
+// Event listener for the "Credits" button to view game credits
 const creditsButton = document.getElementById("credits-button");
 creditsButton.addEventListener("click", function () {
     // Hide the main menu
     const mainMenu = document.querySelector(".game_menu");
     mainMenu.style.display = "none";
 
-    // Show the credits
+    // Display the credits
     showCredits();
 });
 
+// Function to animate the buttons using TweenMax
 function animateButtons() {
     TweenMax.staggerFrom(
         ".btn",
@@ -152,6 +155,7 @@ function animateButtons() {
     );
 }
 
+// Function to populate the scoreboard with scores
 async function populateScoreboard() {
     try {
         const scores = await fetchScores();
@@ -162,6 +166,7 @@ async function populateScoreboard() {
     }
 }
 
+// Function to fetch all scores from the server
 async function fetchScores() {
     const response = await fetch(`${API_URL}/api/scores/all`);
     if (!response.ok) {
@@ -170,6 +175,7 @@ async function fetchScores() {
     return await response.json();
 }
 
+// Function to clear the scoreboard of any existing scores
 function clearScoreboard() {
     const scoreboardBody = document.getElementById("scoreboardBody");
     while (scoreboardBody.firstChild) {
@@ -177,6 +183,7 @@ function clearScoreboard() {
     }
 }
 
+// Function to append scores to the scoreboard
 function appendScoresToScoreboard(scores) {
     const scoreboardBody = document.getElementById("scoreboardBody");
     scores.forEach((score, index) => {
@@ -185,6 +192,7 @@ function appendScoresToScoreboard(scores) {
     });
 }
 
+// Function to create a table row for a score
 function createScoreRow(score, index) {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -197,11 +205,13 @@ function createScoreRow(score, index) {
     return row;
 }
 
+// Function to display the credits section
 function showCredits() {
     const creditsMain = createCreditsContainer();
     document.body.appendChild(creditsMain);
 }
 
+// Function to create the credits container
 function createCreditsContainer() {
     const creditsMain = createElement("div", ["credits-container"]);
     const creditsContainer = createElement("section", ["credits-section"]);
@@ -220,6 +230,7 @@ function createCreditsContainer() {
     return creditsMain;
 }
 
+// Function to create a list of developers for the credits section
 function createDevelopersList(developers) {
     const developersList = createElement("ul", ["developers-list"]);
     developers.forEach((developer) => {
@@ -229,6 +240,7 @@ function createDevelopersList(developers) {
     return developersList;
 }
 
+// Function to create the "Back to Menu" button in the credits section
 function createCreditsBackButton(creditsMain) {
     const backButton = createElement(
         "button",
@@ -242,10 +254,12 @@ function createCreditsBackButton(creditsMain) {
     return backButton;
 }
 
+// Utility function to toggle the display of an element
 function toggleDisplay(selector, displayValue) {
     document.querySelector(selector).style.display = displayValue;
 }
 
+// Utility function to create an HTML element with optional classes and text content
 function createElement(tag, classes = [], textContent = "") {
     const element = document.createElement(tag);
     element.classList.add(...classes);
@@ -255,7 +269,7 @@ function createElement(tag, classes = [], textContent = "") {
     return element;
 }
 
-// Create a function to render the scoreboard
+// Function to render the scoreboard UI
 function renderScoreboard() {
     // Create a container element for the scoreboard
     const scoreboardMain = document.createElement("div");
@@ -324,6 +338,7 @@ function renderScoreboard() {
     populateScoreboard();
 }
 
+// Function to fetch the current user's profile
 async function getCurrentUser() {
     const token = localStorage.getItem("token");
     if (!token) return null;
