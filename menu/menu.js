@@ -1,4 +1,4 @@
-let URL = "https://memory-card-gamenode.onrender.com";
+// let URL = "https://memory-card-gamenode.onrender.com";
 
 const resumeGameButton = document.getElementById("resume-game");
 resumeGameButton.classList.add("btn");
