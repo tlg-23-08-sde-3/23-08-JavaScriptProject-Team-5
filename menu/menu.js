@@ -14,7 +14,7 @@ async function checkForSavedGame(userId) {
         }
         return false; // If the response is not okay, assume no saved game
     } catch (error) {
-        console.error("Error checking for saved game:", error);
+        console.log("Error checking for saved game:", error);
         return false;
     }
 }
@@ -23,7 +23,7 @@ async function displayResumeButtonIfGameExists() {
     const user = await getCurrentUser(); // Assuming this function is available to get the current user
     console.log(user);
     if (!user) {
-        console.error("No user found.");
+        console.log("No user found.");
         return;
     }
 
@@ -340,7 +340,7 @@ async function getCurrentUser() {
 
         return await response.json();
     } catch (error) {
-        console.error("Error fetching user profile:", error);
+        console.log("Error fetching user profile:", error);
         return null;
     }
 }
