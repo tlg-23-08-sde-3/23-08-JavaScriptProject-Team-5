@@ -1,3 +1,7 @@
+const RENDER_URL = "https://memory-card-gamenode.onrender.com";
+const LOCAL_URL = "";
+const URL = RENDER_URL;
+
 const resumeGameButton = document.getElementById("resume-game");
 resumeGameButton.classList.add("btn");
 resumeGameButton.style.display = "none";
@@ -7,7 +11,7 @@ displayResumeButtonIfGameExists();
 
 async function checkForSavedGame(userId) {
     try {
-        const response = await fetch(`/api/game/load/${userId}`);
+        const response = await fetch(`${URL}/api/game/load/${userId}`);
         if (response.ok) {
             const gameState = await response.json();
             return !!gameState; // Returns true if gameState exists, false otherwise
@@ -163,7 +167,7 @@ async function populateScoreboard() {
 }
 
 async function fetchScores() {
-    const response = await fetch("/api/scores/all");
+    const response = await fetch(`${URL}/api/scores/all`);
     if (!response.ok) {
         throw new Error("Failed to fetch scores");
     }
@@ -328,7 +332,7 @@ async function getCurrentUser() {
     if (!token) return null;
 
     try {
-        const response = await fetch("/api/users/profile", {
+        const response = await fetch(`${URL}/api/users/profile`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
