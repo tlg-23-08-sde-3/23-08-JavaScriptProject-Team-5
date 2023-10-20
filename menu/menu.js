@@ -1,5 +1,3 @@
-let URL = "https://memory-card-gamenode.onrender.com";
-
 const resumeGameButton = document.getElementById("resume-game");
 resumeGameButton.classList.add("btn");
 resumeGameButton.style.display = "none";
