@@ -1,7 +1,3 @@
-const RENDER_URL = "https://memory-card-gamenode.onrender.com";
-const LOCAL_URL = "";
-const URL = RENDER_URL;
-
 const resumeGameButton = document.getElementById("resume-game");
 resumeGameButton.classList.add("btn");
 resumeGameButton.style.display = "none";
@@ -11,7 +7,9 @@ displayResumeButtonIfGameExists();
 
 async function checkForSavedGame(userId) {
     try {
-        const response = await fetch(`${URL}/api/game/load/${userId}`);
+        const response = await fetch(
+            `${process.env.URL}/api/game/load/${userId}`
+        );
         if (response.ok) {
             const gameState = await response.json();
             return !!gameState; // Returns true if gameState exists, false otherwise
