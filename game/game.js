@@ -5,6 +5,7 @@ const difficulties = {
 };
 
 let currentDifficulty;
+let savedDifficulty;
 let remainingTime;
 let timerInterval;
 let isPaused = false;
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("startGame", function (event) {
         const { searchInput, selectedDifficulty } = event.detail;
         setDifficulty(selectedDifficulty);
+        savedDifficulty = selectedDifficulty;
         adjustGridColumns();
         initializeGame(searchInput);
     });
@@ -21,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function setDifficulty(difficulty) {
+    savedDifficulty = difficulty;
     if (difficulties[difficulty]) {
         currentDifficulty = difficulties[difficulty];
         remainingTime = currentDifficulty.duration;
@@ -64,43 +67,120 @@ function togglePause() {
         document.getElementById("pauseButton").innerText = "Resume Game";
         saveGameState();
     } else {
-        loadGameState();
         timerInterval = setInterval(updateTimer, 1000);
         document.getElementById("pauseButton").innerText = "Pause Game";
     }
 }
 
-function saveGameState() {
-    const gameState = {
-        remainingTime: remainingTime,
-        flippedCards: Array.from(
-            document.querySelectorAll(".card.flipped")
-        ).map((card) => card.dataset.imageIndex),
-        cardOrder: Array.from(document.querySelectorAll(".card")).map(
-            (card) => card.dataset.imageIndex
-        ),
-    };
+async function saveGameState() {
+    const user = await getCurrentUser();
+    if (!user) {
+        console.error("No user found. Cannot save game state.");
+        return;
+    }
 
-    localStorage.setItem("gameState", JSON.stringify(gameState));
+    const cards = Array.from(document.querySelectorAll(".card"));
+
+    const flippedOrMatchedCardsIndices = cards
+        .filter(
+            (card) =>
+                card.classList.contains("flipped") ||
+                card.classList.contains("matched")
+        )
+        .map((card) => parseInt(card.dataset.imageIndex));
+
+    console.log(
+        "Flipped or Matched Cards Indices:",
+        flippedOrMatchedCardsIndices
+    );
+
+    const gameState = {
+        userId: user._id,
+        remainingTime: remainingTime,
+        flippedCards: flippedOrMatchedCardsIndices,
+        cardOrder: cards.map((card) => ({
+            imageIndex: card.dataset.imageIndex,
+            imageUrl: card.querySelector(".card-back").style.backgroundImage,
+        })),
+        difficulty: savedDifficulty,
+    };
+    console.log(gameState);
+
+    try {
+        const response = await fetch("/api/game/save", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(gameState),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to save game state to backend");
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-function loadGameState() {
-    const savedState = JSON.parse(localStorage.getItem("gameState"));
-    if (!savedState) return;
+async function loadGameState() {
+    console.log("start");
+    const user = await getCurrentUser();
+    if (!user) {
+        console.error("No user found. Cannot load game state.");
+        return;
+    }
 
-    remainingTime = savedState.remainingTime;
-    const gameBoard = document.getElementById("gameBoard");
-    const cards = Array.from(gameBoard.children);
+    const userId = user._id;
+    try {
+        const response = await fetch(`/api/game/load/${userId}`);
+        if (!response.ok) {
+            throw new Error("Failed to load game state from backend");
+        }
 
-    // Restore card order
-    savedState.cardOrder.forEach((imageIndex, i) => {
-        gameBoard.appendChild(cards[imageIndex]);
-    });
+        const savedState = await response.json();
+        setDifficulty(savedState.difficulty);
+        remainingTime = savedState.remainingTime;
+        const gameBoard = document.getElementById("gameBoard");
 
-    // Restore flipped cards
-    savedState.flippedCards.forEach((imageIndex) => {
-        cards[imageIndex].classList.add("flipped");
-    });
+        // Clear the current game board
+        while (gameBoard.firstChild) {
+            gameBoard.removeChild(gameBoard.firstChild);
+        }
+
+        // Restore card order and flipped state
+        savedState.cardOrder.forEach((cardData) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.dataset.imageIndex = cardData.imageIndex;
+
+            const cardFront = document.createElement("div");
+            cardFront.classList.add("card-back");
+            cardFront.style.backgroundImage = cardData.imageUrl;
+
+            const cardBack = document.createElement("div");
+            cardBack.classList.add("card-front");
+            cardBack.style.backgroundImage =
+                "url('https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736401_960_720.png')";
+
+            card.appendChild(cardFront);
+            card.appendChild(cardBack);
+            card.addEventListener("click", handleCardClick);
+            gameBoard.appendChild(card);
+
+            // Check if the card was flipped and restore its state
+            if (savedState.flippedCards.includes(cardData.imageIndex)) {
+                card.classList.add("flipped");
+                console.log(savedState.flippedCards);
+            }
+        });
+
+        adjustGridColumns();
+        createGameTimer();
+        document.getElementById("game-page").style.display = "flex";
+        isPaused = false;
+        document.querySelector("#pause").style.display = "block";
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function updateTimer() {
