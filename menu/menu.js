@@ -12,7 +12,7 @@ async function checkForSavedGame(userId) {
             const gameState = await response.json();
             return !!gameState; // Returns true if gameState exists, false otherwise
         }
-        return false; // If the response is not okay, assume no saved game
+        return false;
     } catch (error) {
         console.log("Error checking for saved game:", error);
         return false;
@@ -20,7 +20,7 @@ async function checkForSavedGame(userId) {
 }
 
 async function displayResumeButtonIfGameExists() {
-    const user = await getCurrentUser(); // Assuming this function is available to get the current user
+    const user = await getCurrentUser();
     console.log(user);
     if (!user) {
         console.log("No user found.");
@@ -41,7 +41,7 @@ resumeGameButton.addEventListener("click", async function () {
     mainMenu.style.display = "none";
 
     // Load the saved game state and resume the game
-    await loadGameState(); // Assuming this function is available in the global scope or imported
+    await loadGameState();
 
     // Display the game page
     document.getElementById("game-page").style.display = "flex";
