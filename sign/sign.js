@@ -162,6 +162,7 @@ async function checkLoggedIn() {
             const data = await response.json();
             const { username } = data;
             document.querySelector(".game_menu").style.display = "flex";
+            displayResumeButtonIfGameExists();
             document.querySelector(".user-info").style.display = "block";
             document.getElementById("welcome-message").textContent =
                 "Welcome, " + username + "!";

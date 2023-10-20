@@ -280,8 +280,9 @@ function renderScoreboard() {
         if (gameOverMessage) {
             gameOverMessage.remove();
         }
-        displayResumeButtonIfGameExists();
+
         document.querySelector(".game_menu").style.display = "flex";
+        displayResumeButtonIfGameExists();
         animateButtons();
     });
 
