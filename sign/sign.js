@@ -27,6 +27,8 @@ function handleSuccessfulAuth(username) {
     // Hide the sign-in/sign-up section
     document.querySelector(".sign-section").style.display = "none";
 
+    displayResumeButtonIfGameExists();
+    animateButtons();
     // Show the game menu
     document.querySelector(".game_menu").style.display = "flex";
 
