@@ -1,4 +1,3 @@
-// Define game difficulties and their properties
 const difficulties = {
     easy: { rows: 4, cols: 4, totalCards: 16, duration: 60 },
     medium: { rows: 4, cols: 5, totalCards: 20, duration: 75 },
@@ -11,9 +10,7 @@ let remainingTime;
 let timerInterval;
 let isPaused = false;
 
-// Event listener for when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-    // Event listener for starting the game
     document.addEventListener("startGame", function (event) {
         const { searchInput, selectedDifficulty } = event.detail;
         setDifficulty(selectedDifficulty);
@@ -25,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
     pauseButton.addEventListener("click", togglePause);
 });
 
-// Set the game difficulty
 function setDifficulty(difficulty) {
     savedDifficulty = difficulty;
     if (difficulties[difficulty]) {
@@ -36,7 +32,6 @@ function setDifficulty(difficulty) {
     }
 }
 
-// Adjust the game grid columns based on viewport width
 function adjustGridColumns() {
     const gameBoard = document.getElementById("gameBoard");
     const viewportWidth = window.innerWidth;
@@ -50,7 +45,6 @@ function adjustGridColumns() {
     gameBoard.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
 }
 
-// Create the game timer and display it
 function createGameTimer() {
     const loadingMessage = document.getElementById("loading-message");
     loadingMessage.style.display = "none";
@@ -68,7 +62,6 @@ function createGameTimer() {
     timerInterval = setInterval(updateTimer, 1000);
 }
 
-// Toggle the game pause state
 function togglePause() {
     isPaused = !isPaused;
     if (isPaused) {
@@ -81,7 +74,6 @@ function togglePause() {
     }
 }
 
-// Save the current game state to the backend
 async function saveGameState() {
     const user = await getCurrentUser();
     if (!user) {
@@ -131,7 +123,6 @@ async function saveGameState() {
     }
 }
 
-// Load a saved game state from the backend
 async function loadGameState() {
     console.log("start");
     const user = await getCurrentUser();
@@ -193,7 +184,6 @@ async function loadGameState() {
     }
 }
 
-// Update the game timer every second
 function updateTimer() {
     if (isPaused) return;
     remainingTime--;
@@ -212,7 +202,6 @@ function updateTimer() {
     }
 }
 
-// Fetch a random image based on the user's prompt
 async function fetchRandomImage(userPrompt) {
     try {
         const response = await fetch(`${API_URL}/api/pixabay/create`, {
@@ -231,7 +220,6 @@ async function fetchRandomImage(userPrompt) {
     }
 }
 
-// Fetch a set of unique images based on the user's prompt
 async function fetchUniqueImages(userPrompt, count) {
     const uniqueImages = [];
     while (uniqueImages.length < count) {
@@ -241,7 +229,6 @@ async function fetchUniqueImages(userPrompt, count) {
     return uniqueImages;
 }
 
-// Shuffle an array in place
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -250,7 +237,6 @@ function shuffleArray(array) {
     return array;
 }
 
-// Handle the card click event
 function handleCardClick(event) {
     if (isPaused) return;
     const card = event.currentTarget;
@@ -266,7 +252,6 @@ function handleCardClick(event) {
     }
 }
 
-// Compare two flipped cards to see if they match
 function compareCards() {
     const flippedCards = Array.from(document.querySelectorAll(".card.flipped"));
     if (flippedCards.length !== 2) return;
@@ -288,7 +273,6 @@ function compareCards() {
     checkGameEnd();
 }
 
-// Check if the game has ended (all cards matched)
 function checkGameEnd() {
     if (
         document.querySelectorAll(".card.matched").length ===
@@ -298,7 +282,6 @@ function checkGameEnd() {
     }
 }
 
-// Save the player's score to the backend
 async function saveScoreToBackend(username, points, difficulty, time) {
     try {
         const response = await fetch(`${API_URL}/api/scores/save`, {
@@ -315,7 +298,6 @@ async function saveScoreToBackend(username, points, difficulty, time) {
     }
 }
 
-// Fetch the current user's profile
 async function getCurrentUser() {
     const token = localStorage.getItem("token");
     if (!token) return null;
@@ -338,7 +320,6 @@ async function getCurrentUser() {
     }
 }
 
-// Handle the end of the game
 async function gameEnd() {
     const gameBoard = document.getElementById("gameBoard");
     while (gameBoard.firstChild) gameBoard.removeChild(gameBoard.firstChild);
@@ -381,7 +362,6 @@ async function gameEnd() {
     await displayResumeButtonIfGameExists();
 }
 
-// Initialize the game with the user's prompt
 async function initializeGame(userPrompt) {
     // Initially show the loading message.
     const loadingMessage = document.getElementById("loading-message");
@@ -422,8 +402,6 @@ async function initializeGame(userPrompt) {
 
     createGameTimer();
 }
-
-// Delete a saved game from the backend
 async function deleteSavedGame() {
     const user = await getCurrentUser();
     if (!user) {
