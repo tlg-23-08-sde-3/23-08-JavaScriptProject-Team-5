@@ -357,6 +357,7 @@ async function gameEnd() {
 
     gameContainer.appendChild(endMessage);
     renderScoreboard();
+    deleteSavedGame();
 }
 
 async function initializeGame(userPrompt) {
@@ -395,4 +396,23 @@ async function initializeGame(userPrompt) {
     document.querySelector("#pause").style.display = "block";
 
     createGameTimer();
+}
+async function deleteSavedGame() {
+    const user = await getCurrentUser();
+    if (!user) {
+        console.error("No user found. Cannot delete game state.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/game/delete/${user._id}`, {
+            method: "DELETE",
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to delete game state from backend");
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }
