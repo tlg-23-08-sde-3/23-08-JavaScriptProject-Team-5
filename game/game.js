@@ -109,7 +109,7 @@ async function saveGameState() {
     console.log(gameState);
 
     try {
-        const response = await fetch(`${URL}/api/game/save`, {
+        const response = await fetch(`${API_URL}/api/game/save`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(gameState),
@@ -133,7 +133,7 @@ async function loadGameState() {
 
     const userId = user._id;
     try {
-        const response = await fetch(`${URL}/api/game/load/${userId}`);
+        const response = await fetch(`${API_URL}/api/game/load/${userId}`);
         if (!response.ok) {
             throw new Error("Failed to load game state from backend");
         }
@@ -204,7 +204,7 @@ function updateTimer() {
 
 async function fetchRandomImage(userPrompt) {
     try {
-        const response = await fetch(`${URL}/api/pixabay/create`, {
+        const response = await fetch(`${API_URL}/api/pixabay/create`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt: userPrompt }),
@@ -284,7 +284,7 @@ function checkGameEnd() {
 
 async function saveScoreToBackend(username, points, difficulty, time) {
     try {
-        const response = await fetch(`${URL}/api/scores/save`, {
+        const response = await fetch(`${API_URL}/api/scores/save`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, score: points, difficulty, time }),
@@ -303,7 +303,7 @@ async function getCurrentUser() {
     if (!token) return null;
 
     try {
-        const response = await fetch(`${URL}/api/users/profile`, {
+        const response = await fetch(`${API_URL}/api/users/profile`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -410,7 +410,7 @@ async function deleteSavedGame() {
     }
 
     try {
-        const response = await fetch(`${URL}/api/game/delete/${user._id}`, {
+        const response = await fetch(`${API_URL}/api/game/delete/${user._id}`, {
             method: "DELETE",
         });
 
