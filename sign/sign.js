@@ -1,3 +1,4 @@
+let URL = "https://memory-card-gamenode.onrender.com";
 // Function to toggle between signup and signin forms
 function toggleForm(event) {
     event.preventDefault();
@@ -49,7 +50,7 @@ async function handleUserRegistration(event) {
     const password = event.target.password.value;
 
     try {
-        const response = await fetch(`${process.env.URL}/api/users/register`, {
+        const response = await fetch(`${URL}/api/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -83,7 +84,7 @@ async function handleUserLogin(event) {
     const password = event.target.password.value;
 
     try {
-        const response = await fetch(`${process.env.URL}/api/users/login`, {
+        const response = await fetch(`${URL}/api/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -149,15 +150,12 @@ async function checkLoggedIn() {
         document.querySelector(".game_menu").style.display = "none";
         document.querySelector(".user-info").style.display = "none";
 
-        const response = await fetch(
-            `${process.env.URL}/api/users/checkSession`,
-            {
-                method: "GET",
-                headers: {
-                    "x-auth-token": localStorage.getItem("token"),
-                },
-            }
-        );
+        const response = await fetch(`${URL}/api/users/checkSession`, {
+            method: "GET",
+            headers: {
+                "x-auth-token": localStorage.getItem("token"),
+            },
+        });
 
         if (response.status === 200) {
             const data = await response.json();
