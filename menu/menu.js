@@ -165,7 +165,7 @@ async function populateScoreboard() {
 }
 
 async function fetchScores() {
-    const response = await fetch(`${URL}/api/scores/all`);
+    const response = await fetch(`${process.env.URL}/api/scores/all`);
     if (!response.ok) {
         throw new Error("Failed to fetch scores");
     }
@@ -330,7 +330,7 @@ async function getCurrentUser() {
     if (!token) return null;
 
     try {
-        const response = await fetch(`${URL}/api/users/profile`, {
+        const response = await fetch(`${process.env.URL}/api/users/profile`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
