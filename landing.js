@@ -27,6 +27,7 @@ for (let i = 1; i <= numCards; i++) {
 function createCardWithImages(cardNumber) {
   const card = document.createElement("div");
   card.className = "bg-card";
+  card.style.paddingTop = `${marginLeft}px`;
 
   const frontFilename = `image (${cardNumber}).jpg`;
   const backFilename = `image (${cardNumber + 5}).jpg`;
