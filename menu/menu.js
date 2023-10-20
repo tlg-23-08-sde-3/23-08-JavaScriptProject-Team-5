@@ -281,8 +281,8 @@ function renderScoreboard() {
             gameOverMessage.remove();
         }
         displayResumeButtonIfGameExists();
-        animateButtons();
         document.querySelector(".game_menu").style.display = "flex";
+        animateButtons();
     });
 
     // Create the scrollable table container
